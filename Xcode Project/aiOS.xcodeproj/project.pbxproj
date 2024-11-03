@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
+		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
+		966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */; };
+		966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */; };
+		966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 966DC0B72CD70C670017BF1E /* SwiftAI */; };
+		966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0B92CD70F250017BF1E /* XAIAuthenticationKey.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		966CA7002CD6F5AE008DE67D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,14 +36,15 @@
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		966DC0AC2CD6F69D0017BF1E /* aiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = aiOS.entitlements; sourceTree = "<group>"; };
+		966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSApp.swift; sourceTree = "<group>"; };
+		966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppView.swift; sourceTree = "<group>"; };
+		966DC0B92CD70F250017BF1E /* XAIAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIAuthenticationKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		966CA6F02CD6F5AD008DE67D /* aiOS */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = aiOS;
-			sourceTree = "<group>";
-		};
 		966CA7022CD6F5AE008DE67D /* aiOSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = aiOSTests;
@@ -52,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +86,7 @@
 		966CA6E52CD6F5AD008DE67D = {
 			isa = PBXGroup;
 			children = (
-				966CA6F02CD6F5AD008DE67D /* aiOS */,
+				966DC0B02CD6F69D0017BF1E /* aiOS */,
 				966CA7022CD6F5AE008DE67D /* aiOSTests */,
 				966CA70C2CD6F5AE008DE67D /* aiOSUITests */,
 				966CA6EF2CD6F5AD008DE67D /* Products */,
@@ -90,6 +101,43 @@
 				966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		966DC0AB2CD6F69D0017BF1E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		966DC0B02CD6F69D0017BF1E /* aiOS */ = {
+			isa = PBXGroup;
+			children = (
+				966DC0B52CD6F6A20017BF1E /* Code */,
+				966DC0AB2CD6F69D0017BF1E /* Preview Content */,
+				966DC0AC2CD6F69D0017BF1E /* aiOS.entitlements */,
+				966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */,
+			);
+			path = aiOS;
+			sourceTree = "<group>";
+		};
+		966DC0B52CD6F6A20017BF1E /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				966DC0BB2CD70F6C0017BF1E /* xAI */,
+				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
+				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		966DC0BB2CD70F6C0017BF1E /* xAI */ = {
+			isa = PBXGroup;
+			children = (
+				966DC0B92CD70F250017BF1E /* XAIAuthenticationKey.swift */,
+			);
+			path = xAI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,11 +155,9 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				966CA6F02CD6F5AD008DE67D /* aiOS */,
-			);
 			name = aiOS;
 			packageProductDependencies = (
+				966DC0B72CD70C670017BF1E /* SwiftAI */,
 			);
 			productName = aiOS;
 			productReference = 966CA6EE2CD6F5AD008DE67D /* aiOS.app */;
@@ -195,6 +241,9 @@
 			);
 			mainGroup = 966CA6E52CD6F5AD008DE67D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				966DC0B62CD70C670017BF1E /* XCLocalSwiftPackageReference "../../SwiftAI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 966CA6EF2CD6F5AD008DE67D /* Products */;
 			projectDirPath = "";
@@ -212,6 +261,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */,
+				966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */,
+				966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */,
+				966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +645,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		966DC0B62CD70C670017BF1E /* XCLocalSwiftPackageReference "../../SwiftAI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../SwiftAI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		966DC0B72CD70C670017BF1E /* SwiftAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 966CA6E62CD6F5AD008DE67D /* Project object */;
 }

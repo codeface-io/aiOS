@@ -1,0 +1,24 @@
+{
+  "originHash" : "53a74353299c330bace2da266a2fcf87cabc347c807e8dcc4d3fc8a6c45d5f78",
+  "pins" : [
+    {
+      "identity" : "foundationtoolz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/FoundationToolz.git",
+      "state" : {
+        "revision" : "7ddae2179639507e84cca6b444843469cb4470dc",
+        "version" : "0.5.3"
+      }
+    },
+    {
+      "identity" : "swiftytoolz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/SwiftyToolz.git",
+      "state" : {
+        "revision" : "33edb748e75b5daeb718230f7ebd15cad512db29",
+        "version" : "0.5.2"
+      }
+    }
+  ],
+  "version" : 3
+}
