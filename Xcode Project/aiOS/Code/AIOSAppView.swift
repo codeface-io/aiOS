@@ -39,17 +39,29 @@ struct AIOSAppView: View {
 struct ChatView: View {
     var body: some View {
         VStack(spacing: 0) {
-            List(chat.messages, id: \.content) { message in
-                Label(message.content,
-                      systemImage: message.isFromAssistant ? "checkmark.bubble.fill" : "questionmark.bubble")
+            List {
+                ForEach(chat.messages, id: \.content) { message in
+                    HStack(alignment: .firstTextBaseline) {
+                        if message.isFromAssistant {
+                            Text(message.content.suffix(1))
+                        } else {
+                            Image(systemName: message.isFromAssistant ? "checkmark.bubble.fill" : "questionmark.bubble")
+                                .foregroundStyle(.secondary)
+                        }
+                        
+                        Text(message.content.dropLast(message.isFromAssistant ? 1 : 0))
+                            .lineLimit(nil)
+                            .foregroundStyle(message.isFromAssistant ? .primary : .secondary)
+                    }
+                }
+                .onDelete(perform: chat.deleteItems)
             }
             .animation(.default, value: chat.messages)
             
-            HStack {
-                TextField("Type here",
-                          text: $chat.input,
-                          prompt: Text("Type here"))
-                .lineLimit(nil)
+            HStack(spacing: 0) {
+                TextField("Type here", text: $chat.input, prompt: Text("Type here"))
+                .textFieldStyle(.roundedBorder)
+                .autocorrectionDisabled()
                 .onSubmit {
                     chat.submit()
                 }
@@ -80,15 +92,20 @@ class GrokChat: ObservableObject, Identifiable, Hashable {
         lhs.id == rhs.id
     }
     
+    @MainActor
     func submit() {
         messages.append(.init(content: input,
                               isFromAssistant: false))
         input = ""
         
-        let xAIMessages = messages.map { message in
+        var xAIMessages = messages.map { message in
             XAI.Message(message.content,
                         role: message.isFromAssistant ? .assistant : .user)
         }
+        
+        // a bit of prompt engineering :)
+        xAIMessages.append(.init("Keep your answers short and to the point. End all your answers with exactly one fitting emoji, so that one emoji is always the very last character.",
+                                 role: .system))
         
         Task {
             do {
@@ -108,6 +125,10 @@ class GrokChat: ObservableObject, Identifiable, Hashable {
     }
     
     @Published var input = ""
+    
+    func deleteItems(at offsets: IndexSet) {
+        messages.remove(atOffsets: offsets)
+    }
     
     @Published var messages = [Message]()
     

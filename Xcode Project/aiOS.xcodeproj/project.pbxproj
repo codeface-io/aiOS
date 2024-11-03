@@ -125,9 +125,9 @@
 		966DC0B52CD6F6A20017BF1E /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				966DC0BB2CD70F6C0017BF1E /* xAI */,
 				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
+				966DC0BB2CD70F6C0017BF1E /* xAI */,
 			);
 			path = Code;
 			sourceTree = "<group>";
