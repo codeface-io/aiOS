@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		962AFC2E2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AFC2D2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift */; };
+		962AFC302CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AFC2F2CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift */; };
 		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
 		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
 		966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		962AFC2D2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthropicAuthenticationKey.swift; sourceTree = "<group>"; };
+		962AFC2F2CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAuthenticationKey.swift; sourceTree = "<group>"; };
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +97,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		962AFC2B2CD8401A00FAE3A6 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				962AFC2F2CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift */,
+			);
+			path = OpenAI;
+			sourceTree = "<group>";
+		};
+		962AFC2C2CD8402200FAE3A6 /* Anthropic */ = {
+			isa = PBXGroup;
+			children = (
+				962AFC2D2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift */,
+			);
+			path = Anthropic;
+			sourceTree = "<group>";
+		};
 		966CA6E52CD6F5AD008DE67D = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +160,8 @@
 				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
 				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
+				962AFC2C2CD8402200FAE3A6 /* Anthropic */,
+				962AFC2B2CD8401A00FAE3A6 /* OpenAI */,
 				966DC0BB2CD70F6C0017BF1E /* xAI */,
 			);
 			path = Code;
@@ -304,8 +326,10 @@
 			files = (
 				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
 				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
+				962AFC2E2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift in Sources */,
 				966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */,
 				966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */,
+				962AFC302CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift in Sources */,
 				966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
 			);
