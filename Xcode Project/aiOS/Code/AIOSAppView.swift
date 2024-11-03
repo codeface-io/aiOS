@@ -24,9 +24,8 @@ struct AIOSAppView: View {
      
     @State var selectedChat: Chat?
     
-    @State var chats: [Chat] = [
+    @State var chats = [
         Chat(title: "Chat with Grok",
-             chatBotType: Grok.self,
-             chatBotKey: .xAI)
+             chatBot: .grokBeta(key: .xAI))
     ]
 }

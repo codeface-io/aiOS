@@ -16,6 +16,8 @@
 		966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* Chat.swift */; };
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
 		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
+		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
+		96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F32CD8252B0076BD4D /* SwiftAI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */,
+				96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */,
 				966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +171,8 @@
 			name = aiOS;
 			packageProductDependencies = (
 				966DC0B72CD70C670017BF1E /* SwiftAI */,
+				96FD33F02CD824E30076BD4D /* SwiftAI */,
+				96FD33F32CD8252B0076BD4D /* SwiftAI */,
 			);
 			productName = aiOS;
 			productReference = 966CA6EE2CD6F5AD008DE67D /* aiOS.app */;
@@ -251,7 +257,7 @@
 			mainGroup = 966CA6E52CD6F5AD008DE67D;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				966DC0B62CD70C670017BF1E /* XCLocalSwiftPackageReference "../../SwiftAI" */,
+				96FD33F22CD8252B0076BD4D /* XCLocalSwiftPackageReference "../../SwiftAI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 966CA6EF2CD6F5AD008DE67D /* Products */;
@@ -659,7 +665,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		966DC0B62CD70C670017BF1E /* XCLocalSwiftPackageReference "../../SwiftAI" */ = {
+		96FD33F22CD8252B0076BD4D /* XCLocalSwiftPackageReference "../../SwiftAI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../SwiftAI;
 		};
@@ -667,6 +673,14 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		966DC0B72CD70C670017BF1E /* SwiftAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftAI;
+		};
+		96FD33F02CD824E30076BD4D /* SwiftAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftAI;
+		};
+		96FD33F32CD8252B0076BD4D /* SwiftAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftAI;
 		};

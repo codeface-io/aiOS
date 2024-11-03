@@ -4,8 +4,7 @@ import SwiftUI
 #Preview {
     NavigationStack {
         ChatView(chat: Chat(title: "Test Chat",
-                            chatBotType: Grok.self,
-                            chatBotKey: .xAI))
+                            chatBot: .grokBeta(key: .xAI)))
     }
 }
 

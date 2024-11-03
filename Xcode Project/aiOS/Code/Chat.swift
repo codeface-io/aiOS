@@ -22,9 +22,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
         
         Task {
             do {
-                let answer = try await chatBotType.complete(chat: messages + extraPrompt,
-                                                            authenticationKey: chatBotKey)
-                
+                let answer = try await chatBot.complete(chat: messages + extraPrompt)
                 append(answer)
             } catch {
                 print(error)
@@ -46,16 +44,12 @@ class Chat: ObservableObject, Identifiable, Hashable {
     
     @Published var messages = [Message]()
     
-    init(title: String,
-         chatBotType: ChatBotInterface.Type,
-         chatBotKey: AuthenticationKey) {
+    init(title: String, chatBot: ChatAccess) {
         self.title = title
-        self.chatBotType = chatBotType
-        self.chatBotKey = chatBotKey
+        self.chatBot = chatBot
     }
     
-    private let chatBotKey: AuthenticationKey
-    private let chatBotType: ChatBotInterface.Type
+    private let chatBot: ChatAccess
     
     let title: String
     let id = UUID()
