@@ -17,14 +17,16 @@ struct AIOSAppView: View {
             .navigationTitle("Chats")
         } detail: {
             if let selectedChat {
-                GrokChatView(chat: selectedChat)
+                ChatView(chat: selectedChat)
             }
         }
     }
      
-    @State var selectedChat: GrokChat?
+    @State var selectedChat: Chat?
     
-    @State var chats = [
-        GrokChat(title: "Chat with Grok", apiKey: .xAI)
+    @State var chats: [Chat] = [
+        Chat(title: "Chat with Grok",
+             chatBotType: Grok.self,
+             chatBotKey: .xAI)
     ]
 }

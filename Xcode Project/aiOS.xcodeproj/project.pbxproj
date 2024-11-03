@@ -13,10 +13,9 @@
 		966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */; };
 		966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 966DC0B72CD70C670017BF1E /* SwiftAI */; };
 		966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0B92CD70F250017BF1E /* XAIAuthenticationKey.swift */; };
-		966DC0BD2CD7D9930017BF1E /* GrokChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* GrokChat.swift */; };
+		966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* Chat.swift */; };
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
-		966DC0C12CD7DA130017BF1E /* GrokChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* GrokChatView.swift */; };
-		966DC0C32CD7DA480017BF1E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C22CD7DA480017BF1E /* Message.swift */; };
+		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,10 +45,9 @@
 		966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppView.swift; sourceTree = "<group>"; };
 		966DC0B92CD70F250017BF1E /* XAIAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIAuthenticationKey.swift; sourceTree = "<group>"; };
-		966DC0BC2CD7D9930017BF1E /* GrokChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokChat.swift; sourceTree = "<group>"; };
+		966DC0BC2CD7D9930017BF1E /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
-		966DC0C02CD7DA130017BF1E /* GrokChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokChatView.swift; sourceTree = "<group>"; };
-		966DC0C22CD7DA480017BF1E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		966DC0C02CD7DA130017BF1E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -135,10 +133,9 @@
 			children = (
 				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
-				966DC0C02CD7DA130017BF1E /* GrokChatView.swift */,
-				966DC0BC2CD7D9930017BF1E /* GrokChat.swift */,
+				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
+				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
-				966DC0C22CD7DA480017BF1E /* Message.swift */,
 				966DC0BB2CD70F6C0017BF1E /* xAI */,
 			);
 			path = Code;
@@ -299,13 +296,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966DC0BD2CD7D9930017BF1E /* GrokChat.swift in Sources */,
-				966DC0C12CD7DA130017BF1E /* GrokChatView.swift in Sources */,
+				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
+				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
 				966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */,
 				966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */,
 				966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
-				966DC0C32CD7DA480017BF1E /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

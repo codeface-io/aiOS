@@ -3,18 +3,20 @@ import SwiftUI
 
 #Preview {
     NavigationStack {
-        GrokChatView(chat: GrokChat(title: "Test Chat", apiKey: AuthenticationKey("")))
+        ChatView(chat: Chat(title: "Test Chat",
+                            chatBotType: Grok.self,
+                            chatBotKey: .xAI))
     }
 }
 
-struct GrokChatView: View {
+struct ChatView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollView in
                 List {
                     if chat.messages.isEmpty {
                         MessageView(message: Message("Write a message to start the conversation.😊",
-                                                     isFromAssistant: true))
+                                                     role: .assistant))
                     } else {
                         ForEach(chat.messages) { message in
                             MessageView(message: message)
@@ -70,5 +72,5 @@ struct GrokChatView: View {
         .navigationTitle(chat.title)
     }
     
-    @ObservedObject var chat: GrokChat
+    @ObservedObject var chat: Chat
 }
