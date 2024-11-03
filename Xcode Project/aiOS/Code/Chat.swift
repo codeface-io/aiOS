@@ -22,7 +22,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
         
         Task {
             do {
-                let answer = try await chatBot.complete(chat: messages + extraPrompt)
+                let answer = try await chatAI.complete(chat: messages + extraPrompt)
                 append(answer)
             } catch {
                 print(error)
@@ -44,12 +44,12 @@ class Chat: ObservableObject, Identifiable, Hashable {
     
     @Published var messages = [Message]()
     
-    init(title: String, chatBot: ChatAccess) {
+    init(title: String, chatAI: ChatAI) {
         self.title = title
-        self.chatBot = chatBot
+        self.chatAI = chatAI
     }
     
-    private let chatBot: ChatAccess
+    private let chatAI: ChatAI
     
     let title: String
     let id = UUID()

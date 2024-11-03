@@ -3,8 +3,7 @@ import SwiftUI
 
 #Preview {
     NavigationStack {
-        ChatView(chat: Chat(title: "Test Chat",
-                            chatBot: .grokBeta(key: .xAI)))
+        ChatView(chat: Chat(title: "Test Chat", chatAI: .grokBeta(key: .xAI)))
     }
 }
 
