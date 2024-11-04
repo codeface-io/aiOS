@@ -26,10 +26,13 @@ struct AIOSAppView: View {
     
     @State var chats = [
         Chat(title: "Grok Beta",
-             chatAI: .grokBeta(key: .xAI)),
+             chatAI: XAI.Grok(.grokBeta,
+                              key: .xAI)),
         Chat(title: "Claude 3.5 Sonnet",
-             chatAI: .claude_3_5_Sonnet(key: .anthropic)),
-        Chat(title: "ChatGPT 4o",
-             chatAI: .gpt_4o(key: .openAI))
+             chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
+                                      key: .anthropic)),
+        Chat(title: "OpenAI ChatGPT 4o",
+             chatAI: OpenAI.ChatGPT(.gpt_4o,
+                                    key: .openAI))
     ]
 }

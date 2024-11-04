@@ -3,7 +3,8 @@ import SwiftUI
 
 #Preview {
     NavigationStack {
-        ChatView(chat: Chat(title: "Test Chat", chatAI: .grokBeta(key: .xAI)))
+        ChatView(chat: Chat(title: "Chat GPT",
+                            chatAI: OpenAI.ChatGPT(.gpt_4o, key: .openAI)))
     }
 }
 
