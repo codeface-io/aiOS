@@ -31,7 +31,7 @@ struct AIOSAppView: View {
         Chat(title: "Claude 3.5 Sonnet",
              chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
                                       key: .anthropic)),
-        Chat(title: "OpenAI ChatGPT 4o",
+        Chat(title: "ChatGPT 4o",
              chatAI: OpenAI.ChatGPT(.gpt_4o,
                                     key: .openAI))
     ]

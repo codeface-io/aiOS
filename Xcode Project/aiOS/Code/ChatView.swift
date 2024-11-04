@@ -3,8 +3,15 @@ import SwiftUI
 
 #Preview {
     NavigationStack {
-        ChatView(chat: Chat(title: "Chat GPT",
-                            chatAI: OpenAI.ChatGPT(.gpt_4o, key: .openAI)))
+        ChatView(chat: Chat(title: "Test Chat",
+                            chatAI: MockChatAI()))
+    }
+}
+
+struct MockChatAI: ChatAI {
+    func complete(chat: [SwiftAI.Message]) async throws -> SwiftAI.Message {
+        .init("This is an auto generated mock answer for testing.😎",
+              role: .assistant)
     }
 }
 
@@ -13,24 +20,23 @@ struct ChatView: View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollView in
                 List {
-                    if chat.messages.isEmpty {
-                        MessageView(message: Message("Write a message to start the conversation.😊",
-                                                     role: .assistant))
-                    } else {
-                        ForEach(chat.messages) { message in
-                            MessageView(message: message)
-                                .swipeActions(edge: .leading) {
-                                    Button {
-                                        UIPasteboard.general.string = message.content
-                                    } label: {
-                                        Label("Copy", systemImage: "doc.on.doc")
-                                    }
+                    ForEach(chat.messages) { message in
+                        MessageView(message: message)
+                            .id(message.id)
+                            .listRowInsets(nil)
+                            .listRowSeparator(.hidden)
+                            .listRowSpacing(0)
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    UIPasteboard.general.string = message.content
+                                } label: {
+                                    Label("Copy", systemImage: "doc.on.doc")
                                 }
-                                .id(message.id)
-                        }
-                        .onDelete(perform: chat.deleteItems)
+                            }
                     }
+                    .onDelete(perform: chat.deleteItems)
                 }
+                .listStyle(.plain)
                 .onChange(of: chat.scrollDestinationMessageID) {
                     if let id = chat.scrollDestinationMessageID {
                         withAnimation {
@@ -49,7 +55,7 @@ struct ChatView: View {
                     .scrollClipDisabled()
                     .scrollContentBackground(.hidden)
                     .padding(5)
-                    .background(Color(.secondarySystemBackground))
+                    .background(Color(.tertiarySystemBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding([.leading, .vertical])
                 
@@ -67,7 +73,9 @@ struct ChatView: View {
                 .disabled(chat.input.isEmpty)
             }
             .frame(height: 100)
+            .background(Color(.secondarySystemBackground))
         }
+        .background(Color(.systemBackground))
         .navigationTitle(chat.title)
     }
     

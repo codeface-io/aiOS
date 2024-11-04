@@ -42,7 +42,10 @@ class Chat: ObservableObject, Identifiable, Hashable {
         messages.remove(atOffsets: offsets)
     }
     
-    @Published var messages = [Message]()
+    @Published var messages = [
+        Message("Write a message to start the conversation.😊",
+                role: .assistant)
+    ]
     
     init(title: String, chatAI: ChatAI) {
         self.title = title
