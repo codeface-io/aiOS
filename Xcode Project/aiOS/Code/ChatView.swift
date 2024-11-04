@@ -1,11 +1,20 @@
 import SwiftAI
 import SwiftUI
+import SwiftyToolz
 
 #Preview {
     NavigationStack {
-        ChatView(chat: Chat(title: "Test Chat",
-                            chatAI: MockChatAI()))
+        ChatPreview()
     }
+}
+
+struct ChatPreview: View {
+    var body: some View {
+        ChatView(chat: chat)
+    }
+            
+    @StateObject var chat = Chat(title: "Test Chat",
+                                 chatAI: MockChatAI())
 }
 
 struct MockChatAI: ChatAI {
@@ -23,20 +32,30 @@ struct ChatView: View {
                     ForEach(chat.messages) { message in
                         MessageView(message: message)
                             .id(message.id)
-                            .listRowInsets(nil)
+                            .listRowInsets(
+                                EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                            )
                             .listRowSeparator(.hidden)
-                            .listRowSpacing(0)
+                            .listRowBackground(Color.clear)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
                             .swipeActions(edge: .leading) {
                                 Button {
-                                    UIPasteboard.general.string = message.content
+//                                    UIPasteboard.general.string = message.content
                                 } label: {
                                     Label("Copy", systemImage: "doc.on.doc")
                                 }
                             }
                     }
                     .onDelete(perform: chat.deleteItems)
+                    
+                    Spacer()
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .frame(height: 30)
                 }
                 .listStyle(.plain)
+                .scrollContentBackground(.hidden)
                 .onChange(of: chat.scrollDestinationMessageID) {
                     if let id = chat.scrollDestinationMessageID {
                         withAnimation {
@@ -47,35 +66,33 @@ struct ChatView: View {
                 }
             }
             .animation(.default, value: chat.messages)
-            
-            HStack(spacing: 0) {
+
+            HStack(alignment: .bottom) {
                 TextEditor(text: $chat.input)
                     .autocorrectionDisabled()
                     .onSubmit(chat.submit)
                     .scrollClipDisabled()
                     .scrollContentBackground(.hidden)
                     .padding(5)
-                    .background(Color(.tertiarySystemBackground))
+                    .background(Color.dynamic(.aiOSLevel1))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding([.leading, .vertical])
-                
-                Button {
-                    chat.submit()
-                } label: {
-                    VStack {
-                        Spacer()
-                        
-                        Image(systemName: "paperplane.fill")
-                            .imageScale(.large)
-                            .padding()
+
+                Image(systemName: "paperplane.fill")
+                    .imageScale(.large)
+                    .padding()
+                    .frame(maxHeight: .infinity)
+                    .background(Color.dynamic(.aiOSLevel3))
+                    .foregroundStyle(chat.input.isEmpty ? .secondary : .primary)
+                    .onTapGesture {
+                        chat.submit()
                     }
-                }
-                .disabled(chat.input.isEmpty)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
+            .padding()
             .frame(height: 100)
-            .background(Color(.secondarySystemBackground))
+            .background(Color.dynamic(.aiOSLevel2))
         }
-        .background(Color(.systemBackground))
+        .background(Color.dynamic(.aiOSLevel0))
         .navigationTitle(chat.title)
     }
     

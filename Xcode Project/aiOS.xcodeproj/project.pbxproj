@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		962AFC2E2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AFC2D2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift */; };
 		962AFC302CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AFC2F2CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift */; };
+		964218522CD8C6470001AAA0 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964218512CD8C6470001AAA0 /* Keychain.swift */; };
 		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
 		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
 		966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */; };
@@ -18,6 +19,7 @@
 		966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* Chat.swift */; };
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
 		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
+		966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FA1392CD8CAE700DF8C36 /* Colors.swift */; };
 		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
 		96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F32CD8252B0076BD4D /* SwiftAI */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,7 @@
 /* Begin PBXFileReference section */
 		962AFC2D2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthropicAuthenticationKey.swift; sourceTree = "<group>"; };
 		962AFC2F2CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAuthenticationKey.swift; sourceTree = "<group>"; };
+		964218512CD8C6470001AAA0 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +57,7 @@
 		966DC0BC2CD7D9930017BF1E /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966DC0C02CD7DA130017BF1E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		966FA1392CD8CAE700DF8C36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -160,6 +164,8 @@
 				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
 				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
+				966FA1392CD8CAE700DF8C36 /* Colors.swift */,
+				964218512CD8C6470001AAA0 /* Keychain.swift */,
 				962AFC2C2CD8402200FAE3A6 /* Anthropic */,
 				962AFC2B2CD8401A00FAE3A6 /* OpenAI */,
 				966DC0BB2CD70F6C0017BF1E /* xAI */,
@@ -325,10 +331,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
+				966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */,
 				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
 				962AFC2E2CD8403D00FAE3A6 /* AnthropicAuthenticationKey.swift in Sources */,
 				966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */,
 				966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */,
+				964218522CD8C6470001AAA0 /* Keychain.swift in Sources */,
 				962AFC302CD8408600FAE3A6 /* OpenAIAuthenticationKey.swift in Sources */,
 				966DC0BA2CD70F300017BF1E /* XAIAuthenticationKey.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,

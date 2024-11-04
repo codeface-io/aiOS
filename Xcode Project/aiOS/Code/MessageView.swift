@@ -2,23 +2,34 @@ import SwiftUI
 import SwiftAI
 
 #Preview {
-    ScrollView {
-        LazyVStack(spacing: 18) {
-            MessageView(message: .init("equzrfg ouqdzf vuodaf v",
-                                       role: .user))
-            
-            MessageView(message: .init("equzrfg ouqdzf vuodaf v 😊",
-                                       role: .assistant))
-            
-            MessageView(message: .init("equzrfg ouqdzf vuodaf v",
-                                       role: .user))
-            
-            MessageView(message: .init("equzrfg ouqdzf vuodaf 😊",
-                                       role: .assistant))
-        }
-        .padding()
+    NavigationStack {
+        List {
+            ForEach(0 ..< 10) { _ in
+                MessageView(message: .init("equzrfg ouqdzf vuodaf v",
+                                           role: .user))
+                .listRowInsets(
+                    EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                )
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+#if os(iOS)
+                .listRowSpacing(0)
+#endif
+                
+                MessageView(message: .init("equzrfg ouqdzf vuodaf v 😊",
+                                           role: .assistant))
+                .listRowInsets(
+                    EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                )
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+#if os(iOS)
+                .listRowSpacing(0)
+#endif
+            }
+        }   
+        .background(Color.dynamic(.aiOSLevel0))
     }
-    .background(Color(.systemBackground))
 }
 
 struct MessageView: View {
@@ -29,14 +40,13 @@ struct MessageView: View {
             HStack(alignment: .firstTextBaseline) {
                 if !isUser {
                     Text(message.content.suffix(1))
-                        .background(Color(.secondarySystemBackground))
                 }
                 
                 Text(message.content.dropLast(!isUser ? 1 : 0))
                     .lineLimit(nil)
             }
             .padding()
-            .background(Color(.secondarySystemBackground))
+            .background(Color.dynamic(.aiOSLevel3))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             
             if !isUser { Spacer() }
