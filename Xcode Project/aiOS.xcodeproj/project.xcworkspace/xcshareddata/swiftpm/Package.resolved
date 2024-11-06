@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/flowtoolz/FoundationToolz.git",
       "state" : {
-        "revision" : "7ddae2179639507e84cca6b444843469cb4470dc",
-        "version" : "0.5.3"
+        "revision" : "f3f6ae9f1382b06896685eed76a286c11672075b",
+        "version" : "0.5.6"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/flowtoolz/SwiftyToolz.git",
       "state" : {
-        "revision" : "33edb748e75b5daeb718230f7ebd15cad512db29",
-        "version" : "0.5.2"
+        "revision" : "853b315434a1908d71eb0ee6c1489b9f0da3ef1d",
+        "version" : "0.5.4"
       }
     }
   ],
