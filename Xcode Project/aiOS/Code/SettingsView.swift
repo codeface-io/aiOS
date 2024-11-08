@@ -1,15 +1,14 @@
 import SwiftUI
+import Combine
 import Foundation
 
 struct SettingsView: View {
     var body: some View {
         NavigationStack {
-            List {
-                Text("Option 1")
-                Text("Option 2")
-                Text("Option 3")
+            List(keyStore.keys) { key in
+                Text(key.keyValue)
             }
-            .navigationTitle("Settings")
+            .navigationTitle("API Keys")
             .navigationBarTitleDisplayMode(.inline)
             #if os(iOS)
             .toolbar {
@@ -21,7 +20,36 @@ struct SettingsView: View {
         }
     }
     
+    @StateObject private var keyStore = AuthenticationKeyEntryStore()
     @Environment(\.dismiss) private var dismiss
+}
+
+class AuthenticationKeyEntryStore: ObservableObject {
+    
+    // MARK: - Initialization
+    
+    init() {
+        keys = storedKeys ?? []
+        observeKeys()
+    }
+    
+    // MARK: - Persistence
+    
+    private func observeKeys() {
+        $keys
+            .sink { [weak self] newKeys in
+                self?.storedKeys = newKeys
+            }
+            .store(in: &observations)
+    }
+    
+    private var observations = Set<AnyCancellable>()
+    
+    @Keychain("apiKeys") private var storedKeys: [AuthenticationKeyEntry]?
+    
+    // MARK: - (View-) Model
+    
+    @Published var keys: [AuthenticationKeyEntry] = []
 }
 
 struct AuthenticationKeyEntry: Codable, Identifiable {
