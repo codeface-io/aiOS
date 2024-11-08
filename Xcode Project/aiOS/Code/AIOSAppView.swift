@@ -16,10 +16,12 @@ struct AIOSAppView: View {
             }
             #if !os(macOS)
             .toolbar {
-                Button {
-                    showsSettings = true
-                } label: {
-                    Image(systemName: "gear")
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showsSettings = true
+                    } label: {
+                        Image(systemName: "gear")
+                    }
                 }
             }
             #endif
@@ -31,14 +33,7 @@ struct AIOSAppView: View {
         }
         #if !os(macOS)
         .sheet(isPresented: $showsSettings) {
-            NavigationStack {
-                SettingsView()
-                    .toolbar {
-                        Button("Done") {
-                            showsSettings = false
-                        }
-                    }
-            }
+            SettingsView()
         }
         #endif
     }

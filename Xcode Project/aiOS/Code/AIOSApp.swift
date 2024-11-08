@@ -9,10 +9,8 @@ struct aiOSApp: App {
         
         #if os(macOS)
         Settings {
-            NavigationStack {
-                SettingsView()
-            }
-            .frame(minWidth: 300, minHeight: 200)
+            SettingsView()
+                .frame(minWidth: 300, minHeight: 200)
         }
         #endif
     }
