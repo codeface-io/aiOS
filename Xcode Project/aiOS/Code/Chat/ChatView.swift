@@ -38,12 +38,6 @@ struct ChatView: View {
                             }
                     }
                     .onDelete(perform: chat.deleteItems)
-                    
-                    Color.clear
-                        .frame(height: 30)
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
                 }
                 .safeAreaPadding([.top, .bottom], verticalSpacing / 2)
                 .listStyle(.plain)
