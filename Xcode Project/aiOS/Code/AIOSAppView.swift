@@ -14,13 +14,36 @@ struct AIOSAppView: View {
                           systemImage: "bubble.left.and.bubble.right")
                 }
             }
+            #if !os(macOS)
+            .toolbar {
+                Button {
+                    showsSettings = true
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+            #endif
             .navigationTitle("Chats")
         } detail: {
             if let selectedChat {
                 ChatView(chat: selectedChat)
             }
         }
+        #if !os(macOS)
+        .sheet(isPresented: $showsSettings) {
+            NavigationStack {
+                SettingsView()
+                    .toolbar {
+                        Button("Done") {
+                            showsSettings = false
+                        }
+                    }
+            }
+        }
+        #endif
     }
+    
+    @State var showsSettings = false
 
     @State var selectedChat: Chat?
 

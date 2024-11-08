@@ -24,6 +24,7 @@
 		96A5259C2CDE73E800FB43C1 /* MockChatAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */; };
 		96A5259E2CDE764F00FB43C1 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5259D2CDE764F00FB43C1 /* Clipboard.swift */; };
 		96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A12CDE772F00FB43C1 /* AIOSColors.swift */; };
+		96A525A42CDE94EB00FB43C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A32CDE94E000FB43C1 /* SettingsView.swift */; };
 		96BD3A992CDD88FA00878431 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3A982CDD88FA00878431 /* InputView.swift */; };
 		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
 		96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F32CD8252B0076BD4D /* SwiftAI */; };
@@ -66,6 +67,7 @@
 		96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChatAI.swift; sourceTree = "<group>"; };
 		96A5259D2CDE764F00FB43C1 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		96A525A12CDE772F00FB43C1 /* AIOSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSColors.swift; sourceTree = "<group>"; };
+		96A525A32CDE94E000FB43C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		96BD3A982CDD88FA00878431 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 			children = (
 				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
+				96A525A32CDE94E000FB43C1 /* SettingsView.swift */,
 				96A525A02CDE76D000FB43C1 /* Chat */,
 				96A525A12CDE772F00FB43C1 /* AIOSColors.swift */,
 				96255BBE2CDB0E9000A5C7E6 /* API Keys */,
@@ -345,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A525A42CDE94EB00FB43C1 /* SettingsView.swift in Sources */,
 				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
 				966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */,
 				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
