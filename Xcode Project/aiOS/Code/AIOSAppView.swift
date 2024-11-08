@@ -21,10 +21,13 @@ struct AIOSAppView: View {
             }
         }
     }
-     
+
     @State var selectedChat: Chat?
-    
+
     @State var chats = [
+        Chat(title: "Mock Chat",
+             chatAI: MockChatAI()),
+        
         Chat(title: "Grok Beta",
              chatAI: XAI.Grok(.grokBeta,
                               key: .xAI)),

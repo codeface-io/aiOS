@@ -19,8 +19,16 @@ struct ChatPreview: View {
 
 struct MockChatAI: ChatAI {
     func complete(chat: [SwiftAI.Message]) async throws -> SwiftAI.Message {
-        .init("This is an auto generated mock answer for testing.😎",
-              role: .assistant)
+        let responses = [
+            "Ok! 👍",
+            "This is a medium length response that could be used for testing the chat interface. Hope it helps! 😊",
+            "Here's a longer response that contains multiple sentences. This helps test how the UI handles longer messages with different amounts of text. It's important to test various lengths to ensure everything displays correctly and scrolls properly. Have a great day! 🌟",
+            "Testing... 🤖",
+            "Thanks for your message! Let me help you with that. 💫"
+        ]
+        
+        return .init(responses.randomElement() ?? "Something went wrong 😅",
+                     role: .assistant)
     }
 }
 
@@ -32,13 +40,11 @@ struct ChatView: View {
                     ForEach(chat.messages) { message in
                         MessageView(message: message)
                             .id(message.id)
-                            .listRowInsets(
-                                EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                            )
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
                             .padding(.horizontal)
-                            .padding(.vertical, 8)
+                            .padding(.vertical, verticalSpacing / 2)
                             .swipeActions(edge: .leading) {
                                 Button {
 //                                    UIPasteboard.general.string = message.content
@@ -49,11 +55,13 @@ struct ChatView: View {
                     }
                     .onDelete(perform: chat.deleteItems)
                     
-                    Spacer()
+                    Color.clear
+                        .frame(height: 30)
+                        .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
-                        .frame(height: 30)
                 }
+                .safeAreaPadding([.top, .bottom], verticalSpacing / 2)
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .onChange(of: chat.scrollDestinationMessageID) {
@@ -67,34 +75,13 @@ struct ChatView: View {
             }
             .animation(.default, value: chat.messages)
 
-            HStack(alignment: .bottom) {
-                TextEditor(text: $chat.input)
-                    .autocorrectionDisabled()
-                    .onSubmit(chat.submit)
-                    .scrollClipDisabled()
-                    .scrollContentBackground(.hidden)
-                    .padding(5)
-                    .background(Color.dynamic(.aiOSLevel1))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                Image(systemName: "paperplane.fill")
-                    .imageScale(.large)
-                    .padding()
-                    .frame(maxHeight: .infinity)
-                    .background(Color.dynamic(.aiOSLevel3))
-                    .foregroundStyle(chat.input.isEmpty ? .secondary : .primary)
-                    .onTapGesture {
-                        chat.submit()
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            }
-            .padding()
-            .frame(height: 100)
-            .background(Color.dynamic(.aiOSLevel2))
+            InputView(chat: chat)
         }
         .background(Color.dynamic(.aiOSLevel0))
         .navigationTitle(chat.title)
     }
+    
+    var verticalSpacing: CGFloat { 16 }
     
     @ObservedObject var chat: Chat
 }

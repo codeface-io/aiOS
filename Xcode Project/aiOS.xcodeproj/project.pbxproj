@@ -21,6 +21,7 @@
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
 		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
 		966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FA1392CD8CAE700DF8C36 /* Colors.swift */; };
+		96BD3A992CDD88FA00878431 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3A982CDD88FA00878431 /* InputView.swift */; };
 		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
 		96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F32CD8252B0076BD4D /* SwiftAI */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966DC0C02CD7DA130017BF1E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		966FA1392CD8CAE700DF8C36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		96BD3A982CDD88FA00878431 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -158,6 +160,7 @@
 				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
 				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
+				96BD3A982CDD88FA00878431 /* InputView.swift */,
 				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				966FA1392CD8CAE700DF8C36 /* Colors.swift */,
@@ -325,6 +328,7 @@
 				966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */,
 				964218522CD8C6470001AAA0 /* Keychain.swift in Sources */,
 				962AFC302CD8408600FAE3A6 /* OpenAI.AuthenticationKey+MyKey.swift in Sources */,
+				96BD3A992CDD88FA00878431 /* InputView.swift in Sources */,
 				966DC0BA2CD70F300017BF1E /* XAI.AuthenticationKey+MyKey.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
 			);
