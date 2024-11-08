@@ -54,6 +54,7 @@ struct MessageView: View {
         .padding(.leading, isUser ? 20 : 0)
         .padding(.trailing, isUser ? 0 : 20)
         .foregroundStyle(isUser ? .secondary : .primary)
+        .id(message.id)
     }
     
     var isUser: Bool { message.role == .user }

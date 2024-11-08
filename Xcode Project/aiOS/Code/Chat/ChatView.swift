@@ -23,7 +23,6 @@ struct ChatView: View {
                 List {
                     ForEach(chat.messages) { message in
                         MessageView(message: message)
-                            .id(message.id)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets())
@@ -43,7 +42,7 @@ struct ChatView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .onChange(of: chat.scrollDestinationMessageID) {
-                    if let id = chat.scrollDestinationMessageID {
+                    if let id = $1 {
                         withAnimation {
                             scrollView.scrollTo(id, anchor: .top)
                             chat.scrollDestinationMessageID = nil
