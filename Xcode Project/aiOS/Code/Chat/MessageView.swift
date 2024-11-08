@@ -7,27 +7,21 @@ import SwiftAI
             ForEach(0 ..< 10) { _ in
                 MessageView(message: .init("equzrfg ouqdzf vuodaf v",
                                            role: .user))
-                .listRowInsets(
-                    EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
-#if os(iOS)
-                .listRowSpacing(0)
-#endif
+                .listRowInsets(EdgeInsets())
+                .padding()
                 
                 MessageView(message: .init("equzrfg ouqdzf vuodaf v 😊",
                                            role: .assistant))
-                .listRowInsets(
-                    EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
-#if os(iOS)
-                .listRowSpacing(0)
-#endif
+                .listRowInsets(EdgeInsets())
+                .padding(.horizontal)
             }
-        }   
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
         .background(Color.dynamic(.aiOSLevel0))
     }
 }
