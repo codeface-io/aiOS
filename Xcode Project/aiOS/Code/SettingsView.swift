@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import Foundation
+import SwiftyToolz
 
 #Preview("SettingsView") {
     SettingsView()
@@ -56,7 +57,7 @@ struct SettingsView: View {
                         newValue,
                         apiIdentifierValue: api.rawValue
                     ) {
-                        storedKeys?.append(newKey)
+                        storedKeys = (storedKeys ?? []) + newKey
                     }
                 }
             }
