@@ -35,25 +35,33 @@ struct SettingsView: View {
                 keyStore.keys.first { $0.providerIdentifierValue == provider.rawValue }?.keyValue ?? ""
             },
             set: { newValue in
+                if newValue.isEmpty {
+                    keyStore.keys.removeAll {
+                        $0.providerIdentifierValue == provider.rawValue
+                    }
+                    
+                    return
+                }
+                
                 if let originalKey = keyStore.keys.first(where: {
                     $0.providerIdentifierValue == provider.rawValue
                 }) {
-                    let updatedKey = AuthenticationKeyEntry(
+                    if let updatedKey = AuthenticationKeyEntry(
                         newValue,
                         providerIdentifierValue: provider.rawValue,
                         name: originalKey.name,
                         description: originalKey.description,
                         id: originalKey.id
-                    )
-                    
-                    keyStore.update(updatedKey)
+                    ) {
+                        keyStore.update(updatedKey)
+                    }
                 } else {
-                    let newKey = AuthenticationKeyEntry(
+                    if let newKey = AuthenticationKeyEntry(
                         newValue,
                         providerIdentifierValue: provider.rawValue
-                    )
-                    
-                    keyStore.update(newKey)
+                    ) {
+                        keyStore.update(newKey)
+                    }
                 }
             }
         )
@@ -108,11 +116,12 @@ struct AuthenticationKeyEntry: Codable, Identifiable {
         .init(rawValue: providerIdentifierValue)
     }
     
-    init(_ keyValue: String,
+    init?(_ keyValue: String,
          providerIdentifierValue: String,
          name: String? = nil,
          description: String? = nil,
          id: UUID = UUID()) {
+        if keyValue.isEmpty { return nil }
         self.id = id
         self.keyValue = keyValue
         self.providerIdentifierValue = providerIdentifierValue
