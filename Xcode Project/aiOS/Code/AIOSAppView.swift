@@ -46,10 +46,22 @@ struct AIOSAppView: View {
 class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
-    @Published var chats = makeInitialChats()
+    @Published var chats = getAvailableChats()
+    @Published var chatAIs = getAvailableChatAIs()
 }
 
-private func makeInitialChats() -> [Chat] {
+private func getAvailableChatAIs() -> [ChatAI] {
+    @Keychain(.apiKeys) var keys: [API.Key]?
+    
+    return API.Identifier.allCases.compactMap { supportedAPI in
+        if let matchingKey = keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
+            return supportedAPI.defaultChatAI(withKeyValue: matchingKey.value)
+        }
+        return nil
+    } + [MockChatAI()]
+}
+
+private func getAvailableChats() -> [Chat] {
     @Keychain(.apiKeys) var keys: [API.Key]?
 
     return API.Identifier.allCases.compactMap { api in
