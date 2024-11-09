@@ -44,30 +44,25 @@ struct AIOSAppView: View {
 }
 
 class AIOSAppViewModel: ObservableObject {
-    init() {
-        @Keychain(.apiKeys) var keys: [API.Key]?
-        
-        // Create initial array of chats
-        let initialChats: [Chat] = API.Identifier.allCases.compactMap { api in
-            if let key = keys?.first(where: { $0.apiIdentifier == api }) {
-                return (api, key.value)
-            } else {
-                return nil
-            }
-        }.map { api, keyValue in
-            Chat(title: api.displayName + " Chat",
-                 chatAI: api.defaultChatAI(withKeyValue: keyValue))
-        } + Chat(title: "Mock Chat", chatAI: MockChatAI())
-        
-        _chats = Published(initialValue: initialChats)
-    }
-    
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
-    @Published var chats: [Chat]
+    @Published var chats = makeInitialChats()
 }
 
-extension API.Identifier {
+private func makeInitialChats() -> [Chat] {
+    @Keychain(.apiKeys) var keys: [API.Key]?
+
+    return API.Identifier.allCases.compactMap { api in
+        if let key = keys?.first(where: { $0.apiIdentifier == api }) {
+            return Chat(title: api.displayName + " Chat",
+                        chatAI: api.defaultChatAI(withKeyValue: key.value))
+        } else {
+            return nil
+        }
+    } + Chat(title: "Mock Chat", chatAI: MockChatAI())
+}
+
+private extension API.Identifier {
     func defaultChatAI(withKeyValue keyValue: String) -> ChatAI {
         switch self {
         case .anthropic:
