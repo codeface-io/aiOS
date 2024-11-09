@@ -5,8 +5,6 @@ import SwiftyToolz
 
 @propertyWrapper
 public struct Keychain<Value: Codable> {
-    public init(_ item: KeychainItemID) { self.itemID = item }
-    
     public var wrappedValue: Value? {
         get {
             do {
@@ -25,6 +23,8 @@ public struct Keychain<Value: Codable> {
             }
         }
     }
+    
+    public init(_ itemID: KeychainItemID) { self.itemID = itemID }
     
     private let itemID: KeychainItemID
 }
