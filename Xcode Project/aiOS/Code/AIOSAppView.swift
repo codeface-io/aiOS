@@ -42,35 +42,34 @@ struct AIOSAppView: View {
     @State var selectedChat: Chat?
     
     init() {
-        let keyStore = AuthenticationKeyEntryStore()
-        
         // Create initial array with mock chat
         var initialChats: [Chat] = [
-            Chat(title: "Mock Chat",
-                 chatAI: MockChatAI())
+            Chat(title: "Mock Chat", chatAI: MockChatAI())
         ]
         
-        // Add a chat for each provider that has a key
-        for provider in ProviderIdentifier.allCases {
-            if let key = keyStore.keys.first(where: { $0.providerIdentifier == provider }) {
-                switch provider {
+        // Add a chat for each api that has a key
+        @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
+        
+        for api in API.Identifier.allCases {
+            if let key = storedKeys?.first(where: { $0.apiIdentifier == api }) {
+                switch api {
                 case .openAI:
                     initialChats.append(
                         Chat(title: "ChatGPT 4",
                              chatAI: OpenAI.ChatGPT(.gpt_4o,
-                                                    key: .init(key.keyValue)))
+                                                    key: .init(key.value)))
                     )
                 case .anthropic:
                     initialChats.append(
                         Chat(title: "Claude 3.5 Sonnet",
                              chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
-                                                      key: .init(key.keyValue)))
+                                                      key: .init(key.value)))
                     )
                 case .xAI:
                     initialChats.append(
                         Chat(title: "Grok Beta",
                              chatAI: XAI.Grok(.grokBeta,
-                                              key: .init(key.keyValue)))
+                                              key: .init(key.value)))
                     )
                 }
             }

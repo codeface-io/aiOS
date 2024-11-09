@@ -9,10 +9,10 @@ import Foundation
 struct SettingsView: View {
     var body: some View {
         NavigationStack {
-            List(ProviderIdentifier.allCases) { provider in
-                Section(provider.displayName) {
-                    SecureField("Enter \(provider.displayName) API Key",
-                                text: keyBinding(for: provider))
+            List(API.Identifier.allCases) { api in
+                Section(api.displayName) {
+                    SecureField("Enter \(api.displayName) API Key",
+                                text: keyBinding(for: api))
                 }
             }
             .navigationTitle("API Keys")
@@ -29,125 +29,42 @@ struct SettingsView: View {
         }
     }
 
-    private func keyBinding(for provider: ProviderIdentifier) -> Binding<String> {
+    private func keyBinding(for api: API.Identifier) -> Binding<String> {
         Binding(
             get: {
-                keyStore.keys.first { $0.providerIdentifierValue == provider.rawValue }?.keyValue ?? ""
+                @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
+                return (storedKeys?.first { $0.apiIdentifier == api }?.value) ?? ""
             },
             set: { newValue in
-                if newValue.isEmpty {
-                    keyStore.keys.removeAll {
-                        $0.providerIdentifierValue == provider.rawValue
-                    }
-                    
-                    return
-                }
+                @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
                 
-                if let originalKey = keyStore.keys.first(where: {
-                    $0.providerIdentifierValue == provider.rawValue
-                }) {
-                    if let updatedKey = AuthenticationKeyEntry(
+                if newValue.isEmpty {
+                    storedKeys?.removeAll { $0.apiIdentifier == api }
+                } else if let originalIndex = storedKeys?.firstIndex(where: { $0.apiIdentifier == api }),
+                          let originalKey = storedKeys?[originalIndex] {
+                    if let updatedKey = API.Key(
                         newValue,
-                        providerIdentifierValue: provider.rawValue,
+                        apiIdentifierValue: api.rawValue,
                         name: originalKey.name,
                         description: originalKey.description,
                         id: originalKey.id
                     ) {
-                        keyStore.update(updatedKey)
+                        storedKeys?[originalIndex] = updatedKey
                     }
                 } else {
-                    if let newKey = AuthenticationKeyEntry(
+                    if let newKey = API.Key(
                         newValue,
-                        providerIdentifierValue: provider.rawValue
+                        apiIdentifierValue: api.rawValue
                     ) {
-                        keyStore.update(newKey)
+                        storedKeys?.append(newKey)
                     }
                 }
             }
         )
     }
     
-    @StateObject private var keyStore = AuthenticationKeyEntryStore()
+    
     @Environment(\.dismiss) private var dismiss
 }
 
-class AuthenticationKeyEntryStore: ObservableObject {
-    
-    // MARK: - Initialization
-    
-    init() {
-        keys = storedKeys ?? []
-        observeKeys()
-    }
-    
-    // MARK: - Persistence
-    
-    private func observeKeys() {
-        $keys
-            .sink { [weak self] newKeys in
-                self?.storedKeys = newKeys
-            }
-            .store(in: &observations)
-    }
-    
-    private var observations = Set<AnyCancellable>()
-    
-    @Keychain("apiKeys") private var storedKeys: [AuthenticationKeyEntry]?
-    
-    // MARK: - (View-) Model
-    
-    func update(_ newKey: AuthenticationKeyEntry) {
-        if let existingIndex = keys.firstIndex(where: { $0.id == newKey.id }) {
-            keys[existingIndex] = newKey
-        } else {
-            keys.append(newKey)
-        }
-    }
-    
-    func delete(at offsets: IndexSet) {
-        keys.remove(atOffsets: offsets)
-    }
-    
-    @Published var keys: [AuthenticationKeyEntry] = []
-}
 
-struct AuthenticationKeyEntry: Codable, Identifiable {
-    var providerIdentifier: ProviderIdentifier? {
-        .init(rawValue: providerIdentifierValue)
-    }
-    
-    init?(_ keyValue: String,
-         providerIdentifierValue: String,
-         name: String? = nil,
-         description: String? = nil,
-         id: UUID = UUID()) {
-        if keyValue.isEmpty { return nil }
-        self.id = id
-        self.keyValue = keyValue
-        self.providerIdentifierValue = providerIdentifierValue
-        self.name = name
-        self.description = description
-    }
-    
-    let id: UUID // Unique identifier for each key entry
-    let keyValue: String
-    let providerIdentifierValue: String // Optional provider identifier
-    let name: String? // Optional user-given name
-    let description: String? // Optional user-provided description
-}
-
-enum ProviderIdentifier: String, CaseIterable, Identifiable {
-    var displayName: String {
-        switch self {
-        case .anthropic: "Anthropic"
-        case .openAI: "OpenAI"
-        case .xAI: "xAI"
-        }
-    }
-    
-    var id: String { self.rawValue }
-    
-    case xAI
-    case anthropic
-    case openAI
-}

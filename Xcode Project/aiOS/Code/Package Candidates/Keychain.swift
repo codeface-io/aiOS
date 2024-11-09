@@ -3,21 +3,11 @@ import Security
 
 @propertyWrapper
 public struct Keychain<Value: Codable> {
-    public init(_ key: String) {
-        self.key = key
-    }
+    public init(key: String) { self.key = key }
     
     public var wrappedValue: Value? {
-        get {
-            KeychainAccess.load(forKey: key)
-        }
-        set {
-            if let newValue {
-                KeychainAccess.save(newValue, forKey: key)
-            } else {
-                KeychainAccess.delete(forKey: key)
-            }
-        }
+        get { KeychainAccess.load(forKey: key) }
+        set { KeychainAccess.save(newValue, forKey: key) }
     }
     
     private let key: String
