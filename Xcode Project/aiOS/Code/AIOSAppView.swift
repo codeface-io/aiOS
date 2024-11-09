@@ -17,11 +17,11 @@ struct AIOSAppView: View {
             }
             #if !os(macOS)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         showsSettings = true
                     } label: {
-                        Image(systemName: "gear")
+                        Image(systemName: "key")
                     }
                 }
             }
@@ -53,7 +53,7 @@ struct AIOSAppView: View {
                 return nil
             }
         }.map { api, keyValue in
-            Chat(title: api.displayName,
+            Chat(title: api.displayName + " Chat",
                  chatAI: api.defaultChatAI(withKeyValue: keyValue))
         } + Chat(title: "Mock Chat", chatAI: MockChatAI())
         
