@@ -3,11 +3,11 @@ import Combine
 import Foundation
 import SwiftyToolz
 
-#Preview("SettingsView") {
-    SettingsView()
+#Preview {
+    APIKeySettingsView()
 }
 
-struct SettingsView: View {
+struct APIKeySettingsView: View {
     var body: some View {
         NavigationStack {
             List(API.Identifier.allCases) { api in
@@ -34,16 +34,16 @@ struct SettingsView: View {
     private func keyBinding(for api: API.Identifier) -> Binding<String> {
         Binding(
             get: {
-                @Keychain(.apiKeys) var storedKeys: [API.Key]?
-                return (storedKeys?.first { $0.apiIdentifier == api }?.value) ?? ""
+                @Keychain(.apiKeys) var keys: [API.Key]?
+                return (keys?.first { $0.apiIdentifier == api }?.value) ?? ""
             },
             set: { newValue in
-                @Keychain(.apiKeys) var storedKeys: [API.Key]?
+                @Keychain(.apiKeys) var keys: [API.Key]?
                 
                 if newValue.isEmpty {
-                    storedKeys?.removeAll { $0.apiIdentifier == api }
-                } else if let originalIndex = storedKeys?.firstIndex(where: { $0.apiIdentifier == api }),
-                          let originalKey = storedKeys?[originalIndex] {
+                    keys?.removeAll { $0.apiIdentifier == api }
+                } else if let originalIndex = keys?.firstIndex(where: { $0.apiIdentifier == api }),
+                          let originalKey = keys?[originalIndex] {
                     if let updatedKey = API.Key(
                         newValue,
                         apiIdentifierValue: api.rawValue,
@@ -51,14 +51,14 @@ struct SettingsView: View {
                         description: originalKey.description,
                         id: originalKey.id
                     ) {
-                        storedKeys?[originalIndex] = updatedKey
+                        keys?[originalIndex] = updatedKey
                     }
                 } else {
                     if let newKey = API.Key(
                         newValue,
                         apiIdentifierValue: api.rawValue
                     ) {
-                        storedKeys = (storedKeys ?? []) + newKey
+                        keys = (keys ?? []) + newKey
                     }
                 }
             }

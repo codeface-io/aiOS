@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct aiOSApp: App {
+struct AIOSApp: App {
     var body: some Scene {
         WindowGroup {
             AIOSAppView()
@@ -9,7 +9,7 @@ struct aiOSApp: App {
         
         #if os(macOS)
         Settings {
-            SettingsView()
+            APIKeySettingsView()
                 .frame(minWidth: 300, minHeight: 200)
         }
         #endif

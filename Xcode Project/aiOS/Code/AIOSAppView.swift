@@ -34,7 +34,7 @@ struct AIOSAppView: View {
         }
         #if !os(macOS)
         .sheet(isPresented: $showsSettings) {
-            SettingsView()
+            AKIKeySettingsView()
         }
         #endif
     }
@@ -43,11 +43,11 @@ struct AIOSAppView: View {
     @State var selectedChat: Chat?
     
     init() {
-        @Keychain(.apiKeys) var storedKeys: [API.Key]?
+        @Keychain(.apiKeys) var keys: [API.Key]?
         
         // Create initial array of chats
         let initialChats: [Chat] = API.Identifier.allCases.compactMap { api in
-            if let key = storedKeys?.first(where: { $0.apiIdentifier == api }) {
+            if let key = keys?.first(where: { $0.apiIdentifier == api }) {
                 return (api, key.value)
             } else {
                 return nil
