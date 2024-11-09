@@ -39,21 +39,45 @@ struct AIOSAppView: View {
     }
     
     @State var showsSettings = false
-
     @State var selectedChat: Chat?
-
-    @State var chats = [
-        Chat(title: "Mock Chat",
-             chatAI: MockChatAI()),
+    
+    init() {
+        let keyStore = AuthenticationKeyEntryStore()
         
-        Chat(title: "Grok Beta",
-             chatAI: XAI.Grok(.grokBeta,
-                              key: .xAI)),
-        Chat(title: "Claude 3.5 Sonnet",
-             chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
-                                      key: .anthropic)),
-        Chat(title: "ChatGPT 4o",
-             chatAI: OpenAI.ChatGPT(.gpt_4o,
-                                    key: .openAI))
-    ]
+        // Create initial array with mock chat
+        var initialChats: [Chat] = [
+            Chat(title: "Mock Chat",
+                 chatAI: MockChatAI())
+        ]
+        
+        // Add a chat for each provider that has a key
+        for provider in ProviderIdentifier.allCases {
+            if let key = keyStore.keys.first(where: { $0.providerIdentifier == provider }) {
+                switch provider {
+                case .openAI:
+                    initialChats.append(
+                        Chat(title: "ChatGPT 4",
+                             chatAI: OpenAI.ChatGPT(.gpt_4o,
+                                                    key: .init(key.keyValue)))
+                    )
+                case .anthropic:
+                    initialChats.append(
+                        Chat(title: "Claude 3.5 Sonnet",
+                             chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
+                                                      key: .init(key.keyValue)))
+                    )
+                case .xAI:
+                    initialChats.append(
+                        Chat(title: "Grok Beta",
+                             chatAI: XAI.Grok(.grokBeta,
+                                              key: .init(key.keyValue)))
+                    )
+                }
+            }
+        }
+        
+        _chats = State(initialValue: initialChats)
+    }
+    
+    @State var chats: [Chat]
 }

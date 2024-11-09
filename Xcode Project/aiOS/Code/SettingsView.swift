@@ -9,28 +9,15 @@ import Foundation
 struct SettingsView: View {
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(keyStore.keys) { key in
-                    NavigationLink {
-                        KeyDetailView(key: key, keyStore: keyStore)
-                    } label: {
-                        Text(key.displayTitle).font(.headline)
-                    }
+            List(ProviderIdentifier.allCases) { provider in
+                Section(provider.displayName) {
+                    SecureField("Enter \(provider.displayName) API Key",
+                                text: keyBinding(for: provider))
                 }
-                .onDelete(perform: keyStore.delete)
             }
             .navigationTitle("API Keys")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        let newKey = AuthenticationKeyEntry("", name: "New Key")
-                        keyStore.keys.insert(newKey, at: 0)
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                }
-                
                 #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") {
@@ -41,58 +28,39 @@ struct SettingsView: View {
             }
         }
     }
+
+    private func keyBinding(for provider: ProviderIdentifier) -> Binding<String> {
+        Binding(
+            get: {
+                keyStore.keys.first { $0.providerIdentifierValue == provider.rawValue }?.keyValue ?? ""
+            },
+            set: { newValue in
+                if let originalKey = keyStore.keys.first(where: {
+                    $0.providerIdentifierValue == provider.rawValue
+                }) {
+                    let updatedKey = AuthenticationKeyEntry(
+                        newValue,
+                        providerIdentifierValue: provider.rawValue,
+                        name: originalKey.name,
+                        description: originalKey.description,
+                        id: originalKey.id
+                    )
+                    
+                    keyStore.update(updatedKey)
+                } else {
+                    let newKey = AuthenticationKeyEntry(
+                        newValue,
+                        providerIdentifierValue: provider.rawValue
+                    )
+                    
+                    keyStore.update(newKey)
+                }
+            }
+        )
+    }
     
     @StateObject private var keyStore = AuthenticationKeyEntryStore()
     @Environment(\.dismiss) private var dismiss
-}
-
-struct KeyDetailView: View {
-    var body: some View {
-        Form {
-            Section {
-                TextField("Key", text: $keyValue)
-                TextField("Provider", text: $providerIdentifier)
-                TextField("Name", text: $name)
-                TextField("Description",
-                          text: $description,
-                          axis: .vertical)
-                    .lineLimit(3...6)
-            }
-        }
-        .navigationTitle(name.isEmpty ? "API Key" : name)
-        .onDisappear {
-            // Save changes
-            let updatedKey = AuthenticationKeyEntry(
-                keyValue,
-                providerIdentifierValue: providerIdentifier.isEmpty ? nil : providerIdentifier,
-                name: name.isEmpty ? nil : name,
-                description: description.isEmpty ? nil : description,
-                id: originalKey.id
-            )
-            keyStore.update(updatedKey)
-        }
-    }
-    
-    // Initialization
-    init(key: AuthenticationKeyEntry,
-         keyStore: AuthenticationKeyEntryStore) {
-        self.originalKey = key
-        self.keyStore = keyStore
-        _keyValue = State(initialValue: key.keyValue)
-        _providerIdentifier = State(initialValue: key.providerIdentifierValue ?? "")
-        _name = State(initialValue: key.name ?? "")
-        _description = State(initialValue: key.description ?? "")
-    }
-    
-    // State
-    @State private var name: String
-    @State private var keyValue: String
-    @State private var providerIdentifier: String
-    @State private var description: String
-
-    // Basic Data
-    let originalKey: AuthenticationKeyEntry
-    @ObservedObject var keyStore: AuthenticationKeyEntryStore
 }
 
 class AuthenticationKeyEntryStore: ObservableObject {
@@ -136,12 +104,12 @@ class AuthenticationKeyEntryStore: ObservableObject {
 }
 
 struct AuthenticationKeyEntry: Codable, Identifiable {
-    var displayTitle: String {
-        name ?? String(keyValue.prefix(8))
+    var providerIdentifier: ProviderIdentifier? {
+        .init(rawValue: providerIdentifierValue)
     }
     
     init(_ keyValue: String,
-         providerIdentifierValue: String? = nil,
+         providerIdentifierValue: String,
          name: String? = nil,
          description: String? = nil,
          id: UUID = UUID()) {
@@ -154,7 +122,23 @@ struct AuthenticationKeyEntry: Codable, Identifiable {
     
     let id: UUID // Unique identifier for each key entry
     let keyValue: String
-    let providerIdentifierValue: String? // Optional provider identifier
+    let providerIdentifierValue: String // Optional provider identifier
     let name: String? // Optional user-given name
     let description: String? // Optional user-provided description
+}
+
+enum ProviderIdentifier: String, CaseIterable, Identifiable {
+    var displayName: String {
+        switch self {
+        case .anthropic: "Anthropic"
+        case .openAI: "OpenAI"
+        case .xAI: "xAI"
+        }
+    }
+    
+    var id: String { self.rawValue }
+    
+    case xAI
+    case anthropic
+    case openAI
 }
