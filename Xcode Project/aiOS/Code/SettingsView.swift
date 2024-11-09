@@ -17,16 +17,17 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("API Keys")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                #if os(iOS)
+                
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") {
                         dismiss()
                     }
                 }
-                #endif
             }
+            #endif
         }
     }
 
