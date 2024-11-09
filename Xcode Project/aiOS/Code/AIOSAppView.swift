@@ -43,22 +43,19 @@ struct AIOSAppView: View {
     @State var selectedChat: Chat?
     
     init() {
-        // Create initial array with mock chat
-        var initialChats: [Chat] = [
-            Chat(title: "Mock Chat", chatAI: MockChatAI())
-        ]
-        
-        // Add a chat for each api that has a key
         @Keychain(.apiKeys) var storedKeys: [API.Key]?
         
-        for api in API.Identifier.allCases {
+        // Create initial array of chats
+        let initialChats: [Chat] = API.Identifier.allCases.compactMap { api in
             if let key = storedKeys?.first(where: { $0.apiIdentifier == api }) {
-                initialChats += Chat(
-                    title: api.displayName,
-                    chatAI: api.defaultChatAI(withKeyValue: key.value)
-                )
+                return (api, key.value)
+            } else {
+                return nil
             }
-        }
+        }.map { api, keyValue in
+            Chat(title: api.displayName,
+                 chatAI: api.defaultChatAI(withKeyValue: keyValue))
+        } + Chat(title: "Mock Chat", chatAI: MockChatAI())
         
         _chats = State(initialValue: initialChats)
     }
