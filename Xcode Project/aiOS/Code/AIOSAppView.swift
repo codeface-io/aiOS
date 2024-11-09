@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftAI
+import FoundationToolz
 import SwiftyToolz
 
 #Preview {
@@ -9,7 +10,7 @@ import SwiftyToolz
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            List(chats, selection: $selectedChat) { chat in
+            List(viewModel.chats, selection: $viewModel.selectedChat) { chat in
                 NavigationLink(value: chat) {
                     Label(chat.title,
                           systemImage: "bubble.left.and.bubble.right")
@@ -19,7 +20,7 @@ struct AIOSAppView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        showsSettings = true
+                        viewModel.showsSettings = true
                     } label: {
                         Image(systemName: "key")
                     }
@@ -28,20 +29,21 @@ struct AIOSAppView: View {
             #endif
             .navigationTitle("Chats")
         } detail: {
-            if let selectedChat {
+            if let selectedChat = viewModel.selectedChat {
                 ChatView(chat: selectedChat)
             }
         }
         #if !os(macOS)
-        .sheet(isPresented: $showsSettings) {
-            AKIKeySettingsView()
+        .sheet(isPresented: $viewModel.showsSettings) {
+            APIKeySettingsView()
         }
         #endif
     }
     
-    @State var showsSettings = false
-    @State var selectedChat: Chat?
-    
+    @StateObject var viewModel = AIOSAppViewModel()
+}
+
+class AIOSAppViewModel: ObservableObject {
     init() {
         @Keychain(.apiKeys) var keys: [API.Key]?
         
@@ -57,10 +59,12 @@ struct AIOSAppView: View {
                  chatAI: api.defaultChatAI(withKeyValue: keyValue))
         } + Chat(title: "Mock Chat", chatAI: MockChatAI())
         
-        _chats = State(initialValue: initialChats)
+        _chats = Published(initialValue: initialChats)
     }
     
-    @State var chats: [Chat]
+    @Published var showsSettings = false
+    @Published var selectedChat: Chat?
+    @Published var chats: [Chat]
 }
 
 extension API.Identifier {

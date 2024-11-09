@@ -1,6 +1,6 @@
 import SwiftUI
-import Combine
-import Foundation
+import SwiftAI
+import FoundationToolz
 import SwiftyToolz
 
 #Preview {
