@@ -8,37 +8,47 @@ public struct Keychain<Value: Codable> {
     public init(_ item: KeychainItemID) { self.itemID = item }
     
     public var wrappedValue: Value? {
-        get { KeychainAccess.load(itemID) }
-        set { KeychainAccess.save(newValue, at: itemID) }
+        get {
+            do {
+                return try KeychainAccess.load(itemID)
+            } catch {
+                log(error: error.localizedDescription)
+                return nil
+            }
+        }
+        
+        set {
+            do {
+                try KeychainAccess.save(newValue, at: itemID)
+            } catch {
+                log(error: error.localizedDescription)
+            }
+        }
     }
     
     private let itemID: KeychainItemID
 }
 
 public class KeychainAccess {
-    public static func save(_ item: Encodable, at itemID: KeychainItemID) {
-        do {
-            let itemData = try item.encode()
-            
-            // Create a query dictionary for Keychain operations
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: itemID.value,
-                kSecValueData as String: itemData,
-                kSecAttrSynchronizable as String: kSecAttrSynchronizableAny
-            ]
-            
-            // Delete any existing item for this key to avoid duplicates
-            SecItemDelete(query as CFDictionary)
-            
-            // Add the new keychain item with the data
-            SecItemAdd(query as CFDictionary, nil)
-        } catch {
-            log(error: error.localizedDescription)
-        }
+    public static func save(_ item: Encodable, at itemID: KeychainItemID) throws {
+        let itemData = try item.encode()
+        
+        // Create a query dictionary for Keychain operations
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: itemID.value,
+            kSecValueData as String: itemData,
+            kSecAttrSynchronizable as String: kSecAttrSynchronizableAny
+        ]
+        
+        // Delete any existing item for this key to avoid duplicates
+        SecItemDelete(query as CFDictionary)
+        
+        // Add the new keychain item with the data
+        SecItemAdd(query as CFDictionary, nil)
     }
     
-    public static func load<Item: Decodable>(_ itemID: KeychainItemID) -> Item? {
+    public static func load<Item: Decodable>(_ itemID: KeychainItemID) throws -> Item? {
         // Set up the query for fetching data from Keychain
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -53,16 +63,11 @@ public class KeychainAccess {
         guard SecItemCopyMatching(query as CFDictionary, &itemReference) == noErr,
             let itemData = itemReference as? Data
         else {
-            log(error: "Could not read data from keychain for item `\(itemID.value)`")
+            // an item for the given key simply does not exist in the keychain (yet)
             return nil
         }
            
-        do {
-            return try Item(jsonData: itemData)
-        } catch {
-            log(error: error.localizedDescription)
-            return nil
-        }
+        return try Item(jsonData: itemData)
     }
     
     public static func delete(_ itemID: KeychainItemID) {
