@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftAI
+import SwiftyToolz
 
 #Preview {
     AIOSAppView()
@@ -48,30 +49,14 @@ struct AIOSAppView: View {
         ]
         
         // Add a chat for each api that has a key
-        @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
+        @Keychain(.apiKeys) var storedKeys: [API.Key]?
         
         for api in API.Identifier.allCases {
             if let key = storedKeys?.first(where: { $0.apiIdentifier == api }) {
-                switch api {
-                case .openAI:
-                    initialChats.append(
-                        Chat(title: "ChatGPT 4",
-                             chatAI: OpenAI.ChatGPT(.gpt_4o,
-                                                    key: .init(key.value)))
-                    )
-                case .anthropic:
-                    initialChats.append(
-                        Chat(title: "Claude 3.5 Sonnet",
-                             chatAI: Anthropic.Claude(.claude_3_5_Sonnet,
-                                                      key: .init(key.value)))
-                    )
-                case .xAI:
-                    initialChats.append(
-                        Chat(title: "Grok Beta",
-                             chatAI: XAI.Grok(.grokBeta,
-                                              key: .init(key.value)))
-                    )
-                }
+                initialChats += Chat(
+                    title: api.displayName,
+                    chatAI: api.defaultChatAI(withKeyValue: key.value)
+                )
             }
         }
         
@@ -79,4 +64,17 @@ struct AIOSAppView: View {
     }
     
     @State var chats: [Chat]
+}
+
+extension API.Identifier {
+    func defaultChatAI(withKeyValue keyValue: String) -> ChatAI {
+        switch self {
+        case .anthropic:
+            Anthropic.Claude(.claude_3_5_Sonnet, key: .init(keyValue))
+        case .openAI:
+            OpenAI.ChatGPT(.gpt_4o, key: .init(keyValue))
+        case .xAI:
+            XAI.Grok(.grokBeta, key: .init(keyValue))
+        }
+    }
 }

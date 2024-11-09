@@ -3,14 +3,14 @@ import Security
 
 @propertyWrapper
 public struct Keychain<Value: Codable> {
-    public init(key: String) { self.key = key }
+    public init(_ item: KeychainItemID) { self.itemID = item }
     
     public var wrappedValue: Value? {
-        get { KeychainAccess.load(forKey: key) }
-        set { KeychainAccess.save(newValue, forKey: key) }
+        get { KeychainAccess.load(itemID) }
+        set { KeychainAccess.save(newValue, at: itemID) }
     }
     
-    private let key: String
+    private let itemID: KeychainItemID
 }
 
 public class KeychainAccess {
@@ -18,7 +18,7 @@ public class KeychainAccess {
     /// - Parameters:
     ///   - key: The key to associate with the data
     ///   - data: The string data to be stored
-    public static func save<T: Encodable>(_ item: T, forKey key: String) {
+    public static func save<T: Encodable>(_ item: T, at itemID: KeychainItemID) {
         guard let itemData = try? JSONEncoder().encode(item) else {
             return
         }
@@ -26,7 +26,7 @@ public class KeychainAccess {
         // Create a query dictionary for Keychain operations
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
+            kSecAttrAccount as String: itemID.value,
             kSecValueData as String: itemData,
             kSecAttrSynchronizable as String: kSecAttrSynchronizableAny
         ]
@@ -41,11 +41,11 @@ public class KeychainAccess {
     /// Loads a string from Keychain for a given key
     /// - Parameter key: The key associated with the data to retrieve
     /// - Returns: The string if found, otherwise nil
-    public static func load<T: Decodable>(forKey key: String) -> T? {
+    public static func load<T: Decodable>(_ itemID: KeychainItemID) -> T? {
         // Set up the query for fetching data from Keychain
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
+            kSecAttrAccount as String: itemID.value,
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
@@ -64,14 +64,22 @@ public class KeychainAccess {
     
     /// Deletes a string from Keychain for a given key
     /// - Parameter key: The key associated with the data to delete
-    public static func delete(forKey key: String) {
+    public static func delete(_ itemID: KeychainItemID) {
         // Set up the query to identify which item to delete
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key
+            kSecAttrAccount as String: itemID.value
         ]
         
         // Delete the item from Keychain
         SecItemDelete(query as CFDictionary)
     }
+}
+
+public struct KeychainItemID {
+    public init(_ value: String) {
+        self.value = value
+    }
+    
+    let value: String
 }

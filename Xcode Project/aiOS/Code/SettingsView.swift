@@ -32,11 +32,11 @@ struct SettingsView: View {
     private func keyBinding(for api: API.Identifier) -> Binding<String> {
         Binding(
             get: {
-                @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
+                @Keychain(.apiKeys) var storedKeys: [API.Key]?
                 return (storedKeys?.first { $0.apiIdentifier == api }?.value) ?? ""
             },
             set: { newValue in
-                @Keychain(key: "apiKeys") var storedKeys: [API.Key]?
+                @Keychain(.apiKeys) var storedKeys: [API.Key]?
                 
                 if newValue.isEmpty {
                     storedKeys?.removeAll { $0.apiIdentifier == api }
@@ -67,4 +67,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
 }
 
-
+extension KeychainItemID {
+    static let apiKeys = KeychainItemID("apiKeys")
+}
