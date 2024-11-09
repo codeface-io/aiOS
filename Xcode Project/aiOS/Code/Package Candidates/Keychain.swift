@@ -1,5 +1,7 @@
+import FoundationToolz
 import Foundation
 import Security
+import SwiftyToolz
 
 @propertyWrapper
 public struct Keychain<Value: Codable> {
@@ -14,34 +16,29 @@ public struct Keychain<Value: Codable> {
 }
 
 public class KeychainAccess {
-    /// Saves a string to Keychain for a given key
-    /// - Parameters:
-    ///   - key: The key to associate with the data
-    ///   - data: The string data to be stored
-    public static func save<T: Encodable>(_ item: T, at itemID: KeychainItemID) {
-        guard let itemData = try? JSONEncoder().encode(item) else {
-            return
+    public static func save(_ item: Encodable, at itemID: KeychainItemID) {
+        do {
+            let itemData = try item.encode()
+            
+            // Create a query dictionary for Keychain operations
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: itemID.value,
+                kSecValueData as String: itemData,
+                kSecAttrSynchronizable as String: kSecAttrSynchronizableAny
+            ]
+            
+            // Delete any existing item for this key to avoid duplicates
+            SecItemDelete(query as CFDictionary)
+            
+            // Add the new keychain item with the data
+            SecItemAdd(query as CFDictionary, nil)
+        } catch {
+            log(error: error.localizedDescription)
         }
-        
-        // Create a query dictionary for Keychain operations
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: itemID.value,
-            kSecValueData as String: itemData,
-            kSecAttrSynchronizable as String: kSecAttrSynchronizableAny
-        ]
-        
-        // Delete any existing item for this key to avoid duplicates
-        SecItemDelete(query as CFDictionary)
-        
-        // Add the new keychain item with the data
-        SecItemAdd(query as CFDictionary, nil)
     }
     
-    /// Loads a string from Keychain for a given key
-    /// - Parameter key: The key associated with the data to retrieve
-    /// - Returns: The string if found, otherwise nil
-    public static func load<T: Decodable>(_ itemID: KeychainItemID) -> T? {
+    public static func load<Item: Decodable>(_ itemID: KeychainItemID) -> Item? {
         // Set up the query for fetching data from Keychain
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -51,19 +48,23 @@ public class KeychainAccess {
         ]
         
         // Fetch the item from Keychain
-        var item: CFTypeRef?
+        var itemReference: CFTypeRef?
         
-        guard SecItemCopyMatching(query as CFDictionary, &item) == noErr,
-            let itemData = item as? Data
+        guard SecItemCopyMatching(query as CFDictionary, &itemReference) == noErr,
+            let itemData = itemReference as? Data
         else {
+            log(error: "Could not read data from keychain for item `\(itemID.value)`")
             return nil
         }
-                
-        return try? JSONDecoder().decode(T.self, from: itemData)
+           
+        do {
+            return try Item(jsonData: itemData)
+        } catch {
+            log(error: error.localizedDescription)
+            return nil
+        }
     }
     
-    /// Deletes a string from Keychain for a given key
-    /// - Parameter key: The key associated with the data to delete
     public static func delete(_ itemID: KeychainItemID) {
         // Set up the query to identify which item to delete
         let query: [String: Any] = [
