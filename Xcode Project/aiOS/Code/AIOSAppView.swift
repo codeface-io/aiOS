@@ -22,7 +22,7 @@ struct AIOSAppView: View {
                     Button {
                         viewModel.showsSettings = true
                     } label: {
-                        Image(systemName: "key")
+                        Image(systemName: "key.horizontal")
                     }
                 }
                 #endif
