@@ -13,7 +13,7 @@ struct ChatPreview: View {
         ChatView(chat: chat)
     }
             
-    @StateObject var chat = Chat(title: "Mock Chat", chatAI: MockChatAI())
+    @StateObject var chat = Chat.mock
 }
 
 struct ChatView: View {

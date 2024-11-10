@@ -30,12 +30,13 @@ struct AIOSAppView: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        guard let chatAI = viewModel.chatAIs.first else { return }
-                        viewModel.chats += Chat(title: "New Chat", chatAI: chatAI)
+                        guard let option = viewModel.chatAIOptions.first else { return }
+                        viewModel.chats += Chat(title: option.displayName + " Chat",
+                                                chatAIOption: option)
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .disabled(viewModel.chatAIs.isEmpty)
+                    .disabled(viewModel.chatAIOptions.isEmpty)
                 }
             }
             .navigationTitle("Chats")
@@ -57,32 +58,40 @@ struct AIOSAppView: View {
 class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
-    @Published var chats = [Chat(title: "Mock Chat", chatAI: MockChatAI())]
-    @Published var chatAIs = getDefaultChatAIsForSupportedAPIs()
+    @Published var chats = [Chat.mock]
+    @Published var chatAIOptions = getDefaultChatAIOptionsForSupportedAPIs()
 }
 
-private func getDefaultChatAIsForSupportedAPIs() -> [ChatAI] {
+private func getDefaultChatAIOptionsForSupportedAPIs() -> [ChatAIOption] {
     @Keychain(.apiKeys) var keys: [API.Key]?
     
-    return API.Identifier.allCases.compactMap { supportedAPI in
+    return .mock + API.Identifier.allCases.compactMap { supportedAPI in
         if let matchingKey = keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
-            return supportedAPI.defaultChatAI(withKeyValue: matchingKey.value)
+            return ChatAIOption(
+                chatAI: supportedAPI.defaultChatAI(withKeyValue: matchingKey.value),
+                displayName: supportedAPI.displayName
+            )
         }
         return nil
-    } + [MockChatAI()]
+    }
 }
 
 private func getAvailableChats() -> [Chat] {
     @Keychain(.apiKeys) var keys: [API.Key]?
 
-    return API.Identifier.allCases.compactMap { api in
+    return .mock + API.Identifier.allCases.compactMap { api in
         if let key = keys?.first(where: { $0.apiIdentifier == api }) {
+            let option = ChatAIOption(
+                chatAI: api.defaultChatAI(withKeyValue: key.value),
+                displayName: api.displayName
+            )
+            
             return Chat(title: api.displayName + " Chat",
-                        chatAI: api.defaultChatAI(withKeyValue: key.value))
+                        chatAIOption: option)
         } else {
             return nil
         }
-    } + Chat(title: "Mock Chat", chatAI: MockChatAI())
+    }
 }
 
 private extension API.Identifier {

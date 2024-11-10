@@ -2,6 +2,12 @@ import SwiftAI
 import Foundation
 import SwiftyToolz
 
+extension Chat {
+    static var mock: Chat {
+        Chat(title: "Mock Chat", chatAIOption: .mock)
+    }
+}
+
 class Chat: ObservableObject, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -23,7 +29,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
         Task {
             do {
-                let answer = try await chatAI.complete(chat: messages + extraPrompt)
+                let answer = try await chatAIOption.chatAI.complete(chat: messages + extraPrompt)
                 append(answer)
             } catch {
                 print(error)
@@ -48,13 +54,22 @@ class Chat: ObservableObject, Identifiable, Hashable {
                 role: .assistant)
     ]
 
-    init(title: String, chatAI: ChatAI) {
+    init(title: String, chatAIOption: ChatAIOption) {
         self.title = title
-        self.chatAI = chatAI
+        self.chatAIOption = chatAIOption
     }
 
-    private let chatAI: ChatAI
+    @Published var chatAIOption: ChatAIOption
 
     let title: String
     let id = UUID()
+}
+
+struct ChatAIOption {
+    static var mock: ChatAIOption {
+        .init(chatAI: MockChatAI(), displayName: "Mock AI")
+    }
+    
+    let chatAI: ChatAI
+    let displayName: String
 }
