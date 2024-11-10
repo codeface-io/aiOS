@@ -17,7 +17,8 @@ class Chat: ObservableObject, Identifiable, Hashable {
         input = ""
 
         let extraPrompt = Message( // a bit of prompt engineering :)
-            "Keep your answers short and to the point. End all your answers with exactly one fitting emoji, so that one emoji is always the very last character."
+            "Keep your answers short and to the point. End all your answers with exactly one fitting emoji, so that one emoji is always the very last character.",
+            role: .system
         )
 
         Task {
