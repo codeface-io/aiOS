@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftAI
-import FoundationToolz
 import SwiftyToolz
 
 #Preview {
@@ -30,13 +29,13 @@ struct AIOSAppView: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        guard let option = viewModel.chatAIOptions.first else { return }
+                        guard let option = optionsProvider.chatAIOptions.first else { return }
                         viewModel.chats += Chat(title: option.displayName + " Chat",
                                                 chatAIOption: option)
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .disabled(viewModel.chatAIOptions.isEmpty)
+                    .disabled(optionsProvider.chatAIOptions.isEmpty)
                 }
             }
             .navigationTitle("Chats")
@@ -53,56 +52,11 @@ struct AIOSAppView: View {
     }
     
     @StateObject var viewModel = AIOSAppViewModel()
+    @StateObject var optionsProvider = ChatAIOptionsProvider()
 }
 
 class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
     @Published var chats = [Chat.mock]
-    @Published var chatAIOptions = getDefaultChatAIOptionsForSupportedAPIs()
-}
-
-private func getDefaultChatAIOptionsForSupportedAPIs() -> [ChatAIOption] {
-    @Keychain(.apiKeys) var keys: [API.Key]?
-    
-    return .mock + API.Identifier.allCases.compactMap { supportedAPI in
-        if let matchingKey = keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
-            return ChatAIOption(
-                chatAI: supportedAPI.defaultChatAI(withKeyValue: matchingKey.value),
-                displayName: supportedAPI.displayName
-            )
-        }
-        return nil
-    }
-}
-
-private func getAvailableChats() -> [Chat] {
-    @Keychain(.apiKeys) var keys: [API.Key]?
-
-    return .mock + API.Identifier.allCases.compactMap { api in
-        if let key = keys?.first(where: { $0.apiIdentifier == api }) {
-            let option = ChatAIOption(
-                chatAI: api.defaultChatAI(withKeyValue: key.value),
-                displayName: api.displayName
-            )
-            
-            return Chat(title: api.displayName + " Chat",
-                        chatAIOption: option)
-        } else {
-            return nil
-        }
-    }
-}
-
-private extension API.Identifier {
-    func defaultChatAI(withKeyValue keyValue: String) -> ChatAI {
-        switch self {
-        case .anthropic:
-            Anthropic.Claude(.claude_3_5_Sonnet, key: .init(keyValue))
-        case .openAI:
-            OpenAI.ChatGPT(.gpt_4o, key: .init(keyValue))
-        case .xAI:
-            XAI.Grok(.grokBeta, key: .init(keyValue))
-        }
-    }
 }
