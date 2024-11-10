@@ -19,9 +19,13 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
     @MainActor
     func submit() {
+        guard !input.isEmpty else { return }
+        
         append(Message(input))
         input = ""
 
+        isLoading = true
+        
         let extraPrompt = Message( // a bit of prompt engineering :)
             "Keep your answers short and to the point.",
             role: .system
@@ -31,11 +35,15 @@ class Chat: ObservableObject, Identifiable, Hashable {
             do {
                 let answer = try await chatAIOption.chatAI.complete(chat: messages + extraPrompt)
                 append(answer)
+                isLoading = false
             } catch {
                 print(error)
+                isLoading = false
             }
         }
     }
+    
+    @Published var isLoading = false
 
     private func append(_ message: Message) {
         messages.append(message)
