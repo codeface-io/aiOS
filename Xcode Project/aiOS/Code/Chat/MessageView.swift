@@ -31,17 +31,11 @@ struct MessageView: View {
         HStack {
             if isUser { Spacer() }
             
-            HStack(alignment: .firstTextBaseline) {
-                if !isUser {
-                    Text(message.content.suffix(1))
-                }
-                
-                Text(message.content.dropLast(!isUser ? 1 : 0))
-                    .lineLimit(nil)
-            }
-            .padding()
-            .background(Color.dynamic(.aiOSLevel3))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            Text(message.content)
+                .lineLimit(nil)
+                .padding()
+                .background(Color.dynamic(.aiOSLevel3))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             
             if !isUser { Spacer() }
         }
