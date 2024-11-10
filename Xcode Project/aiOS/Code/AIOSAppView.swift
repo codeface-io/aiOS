@@ -58,10 +58,10 @@ class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
     @Published var chats = [Chat(title: "Mock Chat", chatAI: MockChatAI())]
-    @Published var chatAIs = getAvailableChatAIs()
+    @Published var chatAIs = getDefaultChatAIsForSupportedAPIs()
 }
 
-private func getAvailableChatAIs() -> [ChatAI] {
+private func getDefaultChatAIsForSupportedAPIs() -> [ChatAI] {
     @Keychain(.apiKeys) var keys: [API.Key]?
     
     return API.Identifier.allCases.compactMap { supportedAPI in
