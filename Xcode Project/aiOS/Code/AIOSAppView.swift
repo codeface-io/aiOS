@@ -16,8 +16,9 @@ struct AIOSAppView: View {
                           systemImage: "bubble.left.and.bubble.right")
                 }
             }
-            #if !os(macOS)
+            
             .toolbar {
+                #if !os(macOS)
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         viewModel.showsSettings = true
@@ -25,8 +26,18 @@ struct AIOSAppView: View {
                         Image(systemName: "key")
                     }
                 }
+                #endif
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        guard let chatAI = viewModel.chatAIs.first else { return }
+                        viewModel.chats += Chat(title: "New Chat", chatAI: chatAI)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .disabled(viewModel.chatAIs.isEmpty)
+                }
             }
-            #endif
             .navigationTitle("Chats")
         } detail: {
             if let selectedChat = viewModel.selectedChat {
@@ -46,7 +57,7 @@ struct AIOSAppView: View {
 class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
-    @Published var chats = getAvailableChats()
+    @Published var chats = [Chat(title: "Mock Chat", chatAI: MockChatAI())]
     @Published var chatAIs = getAvailableChatAIs()
 }
 
