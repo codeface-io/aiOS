@@ -28,7 +28,7 @@ struct AIOSAppView: View {
                 }
                 #endif
                 
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     Button {
                         guard let chatAI = viewModel.chatAIs.first else { return }
                         viewModel.chats += Chat(title: "New Chat", chatAI: chatAI)
