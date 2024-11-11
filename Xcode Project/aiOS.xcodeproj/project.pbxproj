@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96235BFD2CE2BEBB00A22B95 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96235BFC2CE2BEB400A22B95 /* APIKeys.swift */; };
 		96374E0A2CDB024E0056F95B /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96374E092CDB024E0056F95B /* SwiftAI */; };
 		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
 		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		96235BFC2CE2BEB400A22B95 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +186,7 @@
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
 				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				96BCC0BF2CE04472006D930A /* ChatAIOptionsProvider.swift */,
+				96235BFC2CE2BEB400A22B95 /* APIKeys.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
 			);
 			path = Chat;
@@ -349,6 +352,7 @@
 				96A5259E2CDE764F00FB43C1 /* Clipboard.swift in Sources */,
 				96BD3A992CDD88FA00878431 /* InputView.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
+				96235BFD2CE2BEBB00A22B95 /* APIKeys.swift in Sources */,
 				96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */,
 				96BCC0C02CE04472006D930A /* ChatAIOptionsProvider.swift in Sources */,
 			);

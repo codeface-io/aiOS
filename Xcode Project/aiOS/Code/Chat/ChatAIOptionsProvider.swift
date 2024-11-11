@@ -8,10 +8,8 @@ class ChatAIOptionsProvider: ObservableObject {
 }
 
 private func getDefaultChatAIOptionsForSupportedAPIs() -> [ChatAIOption] {
-    @Keychain(.apiKeys) var keys: [API.Key]?
-    
     return API.Identifier.allCases.compactMap { supportedAPI in
-        if let matchingKey = keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
+        if let matchingKey = API.keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
             return ChatAIOption(
                 chatAI: supportedAPI.defaultChatAI(withKeyValue: matchingKey.value),
                 displayName: supportedAPI.displayName

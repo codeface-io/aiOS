@@ -34,16 +34,13 @@ struct APIKeySettingsView: View {
     private func keyBinding(for api: API.Identifier) -> Binding<String> {
         Binding(
             get: {
-                @Keychain(.apiKeys) var keys: [API.Key]?
-                return (keys?.first { $0.apiIdentifier == api }?.value) ?? ""
+                (API.keys?.first { $0.apiIdentifier == api }?.value) ?? ""
             },
             set: { newValue in
-                @Keychain(.apiKeys) var keys: [API.Key]?
-                
                 if newValue.isEmpty {
-                    keys?.removeAll { $0.apiIdentifier == api }
-                } else if let originalIndex = keys?.firstIndex(where: { $0.apiIdentifier == api }),
-                          let originalKey = keys?[originalIndex] {
+                    API.keys?.removeAll { $0.apiIdentifier == api }
+                } else if let originalIndex = API.keys?.firstIndex(where: { $0.apiIdentifier == api }),
+                          let originalKey = API.keys?[originalIndex] {
                     if let updatedKey = API.Key(
                         newValue,
                         apiIdentifierValue: api.rawValue,
@@ -51,14 +48,14 @@ struct APIKeySettingsView: View {
                         description: originalKey.description,
                         id: originalKey.id
                     ) {
-                        keys?[originalIndex] = updatedKey
+                        API.keys?[originalIndex] = updatedKey
                     }
                 } else {
                     if let newKey = API.Key(
                         newValue,
                         apiIdentifierValue: api.rawValue
                     ) {
-                        keys = (keys ?? []) + newKey
+                        API.keys = (API.keys ?? []) + newKey
                     }
                 }
             }
@@ -67,8 +64,4 @@ struct APIKeySettingsView: View {
     
     
     @Environment(\.dismiss) private var dismiss
-}
-
-extension KeychainItemID {
-    static let apiKeys = KeychainItemID("apiKeys")
 }
