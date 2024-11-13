@@ -75,6 +75,11 @@ struct ChatListItemView: View {
                     isEditing = false
                 }
                 .focused($fieldIsFocused)
+                .onChange(of: fieldIsFocused) { _, isFocused in
+                    if !isFocused {
+                        isEditing = false
+                    }
+                }
             } else {
                 Text(chat.title)
             }
