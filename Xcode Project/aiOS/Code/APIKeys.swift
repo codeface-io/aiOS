@@ -10,26 +10,24 @@ class APIKeys: ObservableObject {
     }
     
     func set(keyValue: String, for api: API.Identifier) {
-        if keyValue.isEmpty {
-            keys?.removeAll { $0.apiIdentifier == api }
-        } else if let originalIndex = keys?.firstIndex(where: { $0.apiIdentifier == api }),
-                  let originalKey = keys?[originalIndex] {
-            if let updatedKey = API.Key(
-                keyValue,
-                apiIdentifierValue: api.rawValue,
-                name: originalKey.name,
-                description: originalKey.description,
-                id: originalKey.id
-            ) {
+        do {
+            if keyValue.isEmpty {
+                keys?.removeAll { $0.apiIdentifier == api }
+            } else if let originalIndex = keys?.firstIndex(where: { $0.apiIdentifier == api }),
+                      let originalKey = keys?[originalIndex] {
+                let updatedKey = try API.Key(keyValue,
+                                             apiIdentifierValue: api.rawValue,
+                                             name: originalKey.name,
+                                             description: originalKey.description,
+                                             id: originalKey.id)
+                
                 keys?[originalIndex] = updatedKey
-            }
-        } else {
-            if let newKey = API.Key(
-                keyValue,
-                apiIdentifierValue: api.rawValue
-            ) {
+            } else {
+                let newKey = try API.Key(keyValue, apiIdentifierValue: api.rawValue)
                 keys = (keys ?? []) + newKey
             }
+        } catch {
+            log(error: error.readable.message)
         }
     }
     
