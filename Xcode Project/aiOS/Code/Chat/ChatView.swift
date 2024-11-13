@@ -73,7 +73,6 @@ struct ChatMessageList: View {
             .onDelete(perform: chat.deleteItems)
         }
         .listStyle(.plain)
-        .animation(.default, value: chat.messages)
     }
     
     @ObservedObject var chat: Chat
