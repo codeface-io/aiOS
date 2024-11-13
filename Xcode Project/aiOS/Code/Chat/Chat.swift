@@ -18,28 +18,27 @@ class Chat: ObservableObject, Identifiable, Hashable {
     }
 
     @MainActor
-    func submit() {
-        guard hasContentToSend else { return }
+    func submit() async throws {
+        guard !isLoading, hasContentToSend else { return }
+        
+        isLoading = true
         
         if !input.isEmpty {
             append(Message(input))
             input = ""
         }
 
-        isLoading = true
-        
         let systemPrompt = "Keep your answers short and to the point."
 
-        Task { @MainActor in
-            do {
-                let answer = try await chatAIOption.chatAI.complete(chat: messages,
-                                                                    systemPrompt: systemPrompt)
-                append(answer)
-                isLoading = false
-            } catch {
-                print(error)
-                isLoading = false
-            }
+        do {
+            let answer = try await chatAIOption.chatAI.complete(chat: messages,
+                                                                systemPrompt: systemPrompt)
+            
+            append(answer)
+            isLoading = false
+        } catch {
+            isLoading = false
+            throw error
         }
     }
     
