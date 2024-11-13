@@ -127,6 +127,6 @@ class AIOSAppViewModel: ObservableObject {
     
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
-    @Published var chats = [Chat.mock]
+    @Published var chats = [Chat]()
 }
 

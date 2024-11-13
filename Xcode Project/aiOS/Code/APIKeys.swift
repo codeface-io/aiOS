@@ -66,7 +66,8 @@ private func getDefaultChatAIOptions(for keys: [API.Key]?) -> [ChatAIOption] {
         }
         
         return api.defaultChatAIOption(withKeyValue: matchingKey.value)
-    } + .mock
+    }
+    // + .mock
 }
 
 private extension API.Identifier {
