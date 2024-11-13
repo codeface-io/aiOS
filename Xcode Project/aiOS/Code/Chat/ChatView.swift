@@ -19,17 +19,17 @@ struct ChatView: View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollView in
                 ChatMessageList(chat: chat)
-                    .safeAreaPadding([.top, .bottom], verticalSpacing / 2)
                     .scrollContentBackground(.hidden)
-                    .onChange(of: chat.scrollDestinationMessageID) {
-                        if let id = $1 {
+                    .onChange(of: chat.scrollDestinationMessageID) { _, newID in
+                        guard let newID else { return }
+                        
+                        Task {
+                            try? await Task.sleep(for: .milliseconds(10))
                             withAnimation {
-                                scrollView.scrollTo(id, anchor: .top)
-                                chat.scrollDestinationMessageID = nil
+                                scrollView.scrollTo(newID, anchor: .bottom)
                             }
                         }
                     }
-                    .animation(.default, value: chat.messages)
             }
                 
             InputView(chat: chat)
@@ -73,6 +73,7 @@ struct ChatMessageList: View {
             .onDelete(perform: chat.deleteItems)
         }
         .listStyle(.plain)
+        .animation(.default, value: chat.messages)
     }
     
     @ObservedObject var chat: Chat

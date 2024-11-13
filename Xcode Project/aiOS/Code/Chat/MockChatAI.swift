@@ -2,7 +2,7 @@ import SwiftAI
 
 struct MockChatAI: ChatAI {
     func complete(chat: [SwiftAI.Message]) async throws -> SwiftAI.Message {
-        try? await Task.sleep(for: .seconds(1))
+        try? await Task.sleep(for: .milliseconds(100))
         return .init(responses.randomElement() ?? "Something went wrong 😅",
                      role: .assistant)
     }

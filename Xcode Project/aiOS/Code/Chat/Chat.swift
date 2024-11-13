@@ -31,7 +31,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
             role: .system
         )
 
-        Task {
+        Task { @MainActor in
             do {
                 let answer = try await chatAIOption.chatAI.complete(chat: messages + extraPrompt)
                 append(answer)

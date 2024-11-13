@@ -55,6 +55,7 @@ struct AIOSAppView: View {
     @StateObject var optionsProvider = ChatAIOptionsProvider()
 }
 
+@MainActor
 class AIOSAppViewModel: ObservableObject {
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
