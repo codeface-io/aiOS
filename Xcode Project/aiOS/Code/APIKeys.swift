@@ -60,14 +60,19 @@ extension Keychain.ItemDescription {
 }
 
 private func getDefaultChatAIOptions(for keys: [API.Key]?) -> [ChatAIOption] {
-    API.Identifier.allCases.compactMap { api in
+    var result: [ChatAIOption] = API.Identifier.allCases.compactMap { api in
         guard let matchingKey = keys?.first(where: { $0.apiIdentifier == api }) else {
             return nil
         }
         
         return api.defaultChatAIOption(withKeyValue: matchingKey.value)
     }
-    // + .mock
+    
+    #if DEBUG
+    result += .mock
+    #endif
+    
+    return result
 }
 
 private extension API.Identifier {
