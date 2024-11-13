@@ -38,7 +38,7 @@ class APIKeys: ObservableObject {
     private init() { observeKeys() }
     
     func observeKeys() {
-        keysObservation = $keys.sink { keys in
+        keysObservation = $keys.dropFirst().sink { keys in
             Self.storedKeys = keys
             self.chatAIOptions = getDefaultChatAIOptions(for: keys)
         }
