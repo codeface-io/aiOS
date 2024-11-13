@@ -19,10 +19,12 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
     @MainActor
     func submit() {
-        guard !input.isEmpty else { return }
+        guard hasContentToSend else { return }
         
-        append(Message(input))
-        input = ""
+        if !input.isEmpty {
+            append(Message(input))
+            input = ""
+        }
 
         isLoading = true
         
@@ -39,6 +41,10 @@ class Chat: ObservableObject, Identifiable, Hashable {
                 isLoading = false
             }
         }
+    }
+    
+    var hasContentToSend: Bool {
+        !messages.isEmpty || !input.isEmpty
     }
     
     @Published var isLoading = false

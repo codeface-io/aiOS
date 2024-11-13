@@ -29,12 +29,12 @@ struct InputView: View {
                 .padding()
                 .frame(maxHeight: .infinity)
                 .background(Color.dynamic(.aiOSLevel3))
-                .foregroundStyle(chat.input.isEmpty ? .secondary : .primary)
+                .foregroundStyle(chat.hasContentToSend ? .primary : .secondary)
                 .onTapGesture {
                     chat.submit()
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                .opacity(chat.isLoading ? 0 : (chat.input.isEmpty ? 0.5 : 1))
+                .opacity(chat.isLoading ? 0 : (chat.hasContentToSend ? 1 : 0.5))
                 .overlay {
                     if chat.isLoading {
                         ProgressView()
