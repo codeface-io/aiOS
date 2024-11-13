@@ -70,12 +70,6 @@ struct ChatMessageList: View {
                         }
                     }
                     .contextMenu {
-                        Button {
-                            chat.messages.removeAll { $0.id == message.id }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                        
                         #if !os(macOS)
                         Button {
                             editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
@@ -84,6 +78,12 @@ struct ChatMessageList: View {
                                   systemImage: editMode?.wrappedValue == .active ? "checkmark" : "arrow.up.arrow.down")
                         }
                         #endif
+                        
+                        Button {
+                            chat.messages.removeAll { $0.id == message.id }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
                     }
             }
             .onMove(perform: move)
