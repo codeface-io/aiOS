@@ -69,13 +69,33 @@ struct ChatMessageList: View {
                             Label("Copy", systemImage: "doc.on.doc")
                         }
                     }
+                    .contextMenu {
+                        #if !os(macOS)
+                        Button {
+                            editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
+                        } label: {
+                            Label(editMode?.wrappedValue == .active ? "Done Editing List" : "Edit List",
+                                  systemImage: editMode?.wrappedValue == .active ? "checkmark" : "arrow.up.arrow.down")
+                        }
+                        #endif
+                    }
             }
+            .onMove(perform: move)
             .onDelete(perform: chat.deleteItems)
         }
         .listStyle(.plain)
+        .moveDisabled(false)
         #if !os(macOS)
         .animation(.default, value: chat.messages) // it just looks broken on macOS
         #endif
+    }
+    
+    #if !os(macOS)
+    @Environment(\.editMode) private var editMode
+    #endif
+    
+    private func move(from source: IndexSet, to destination: Int) {
+        chat.messages.move(fromOffsets: source, toOffset: destination)
     }
     
     @ObservedObject var chat: Chat
