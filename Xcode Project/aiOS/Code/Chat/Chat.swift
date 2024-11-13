@@ -26,14 +26,12 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
         isLoading = true
         
-        let extraPrompt = Message( // a bit of prompt engineering :)
-            "Keep your answers short and to the point.",
-            role: .system
-        )
+        let systemPrompt = "Keep your answers short and to the point."
 
         Task { @MainActor in
             do {
-                let answer = try await chatAIOption.chatAI.complete(chat: messages + extraPrompt)
+                let answer = try await chatAIOption.chatAI.complete(chat: messages,
+                                                                    systemPrompt: systemPrompt)
                 append(answer)
                 isLoading = false
             } catch {
