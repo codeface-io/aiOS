@@ -70,6 +70,12 @@ struct ChatMessageList: View {
                         }
                     }
                     .contextMenu {
+                        Button {
+                            chat.messages.removeAll { $0.id == message.id }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        
                         #if !os(macOS)
                         Button {
                             editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
