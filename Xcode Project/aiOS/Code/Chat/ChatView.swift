@@ -73,6 +73,9 @@ struct ChatMessageList: View {
             .onDelete(perform: chat.deleteItems)
         }
         .listStyle(.plain)
+        #if !os(macOS)
+        .animation(.default, value: chat.messages) // it just looks broken on macOS
+        #endif
     }
     
     @ObservedObject var chat: Chat
