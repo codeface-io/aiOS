@@ -69,7 +69,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
     @Published var chatAIOption: ChatAIOption
 
-    let title: String
+    @Published var title: String
     let id = UUID()
 }
 

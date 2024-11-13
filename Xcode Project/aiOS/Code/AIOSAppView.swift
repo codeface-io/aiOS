@@ -11,8 +11,7 @@ struct AIOSAppView: View {
         NavigationSplitView {
             List(viewModel.chats, selection: $viewModel.selectedChat) { chat in
                 NavigationLink(value: chat) {
-                    Label(chat.title,
-                          systemImage: "bubble.left.and.bubble.right")
+                    ChatListItemView(chat: chat)
                 }
             }
             
@@ -53,6 +52,42 @@ struct AIOSAppView: View {
     @StateObject var optionsProvider = ChatAIOptionsProvider()
 }
 
+struct ChatListItemView: View {
+    var body: some View {
+        Label {
+            if isEditing {
+                TextField("Chat Title", text: $chat.title) {
+                    isEditing = false
+                }
+                .focused($fieldIsFocused)
+            } else {
+                Text(chat.title)
+            }
+        } icon: {
+            Image(systemName: "bubble.left.and.bubble.right")
+        }
+        .swipeActions(edge: .leading) {
+            Button {
+                startEditing()
+            } label: {
+                Label("Rename", systemImage: "pencil")
+            }
+        }
+        .onTapGesture(count: 2) {
+            startEditing()
+        }
+    }
+    
+    func startEditing() {
+        isEditing = true
+        fieldIsFocused = true
+    }
+    
+    @FocusState var fieldIsFocused: Bool
+    @ObservedObject var chat: Chat
+    @State private var isEditing = false
+}
+
 @MainActor
 class AIOSAppViewModel: ObservableObject {
     func addNewChat() {
@@ -71,3 +106,4 @@ class AIOSAppViewModel: ObservableObject {
     @Published var selectedChat: Chat?
     @Published var chats = [Chat.mock]
 }
+
