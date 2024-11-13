@@ -29,9 +29,7 @@ struct AIOSAppView: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        guard let option = optionsProvider.chatAIOptions.first else { return }
-                        viewModel.chats += Chat(title: option.displayName + " Chat",
-                                                chatAIOption: option)
+                        viewModel.addNewChat()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -57,6 +55,18 @@ struct AIOSAppView: View {
 
 @MainActor
 class AIOSAppViewModel: ObservableObject {
+    func addNewChat() {
+        let options = getDefaultChatAIOptionsForSupportedAPIs()
+        guard let option = options.first else { return }
+        let newChat = Chat(title: "New \(option.displayName) Chat",
+                           chatAIOption: option)
+        chats += newChat
+        
+        Task { @MainActor in
+            self.selectedChat = newChat
+        }
+    }
+    
     @Published var showsSettings = false
     @Published var selectedChat: Chat?
     @Published var chats = [Chat.mock]

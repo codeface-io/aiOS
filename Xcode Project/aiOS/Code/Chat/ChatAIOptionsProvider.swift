@@ -7,7 +7,7 @@ class ChatAIOptionsProvider: ObservableObject {
     @Published var chatAIOptions: [ChatAIOption] = getDefaultChatAIOptionsForSupportedAPIs()
 }
 
-private func getDefaultChatAIOptionsForSupportedAPIs() -> [ChatAIOption] {
+func getDefaultChatAIOptionsForSupportedAPIs() -> [ChatAIOption] {
     return API.Identifier.allCases.compactMap { supportedAPI in
         if let matchingKey = API.keys?.first(where: { $0.apiIdentifier == supportedAPI }) {
             return ChatAIOption(
