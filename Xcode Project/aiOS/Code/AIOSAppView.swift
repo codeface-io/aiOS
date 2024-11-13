@@ -9,9 +9,14 @@ import SwiftyToolz
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            List(viewModel.chats, selection: $viewModel.selectedChat) { chat in
-                NavigationLink(value: chat) {
-                    ChatListItemView(chat: chat)
+            List(selection: $viewModel.selectedChat) {
+                ForEach(viewModel.chats) { chat in
+                    NavigationLink(value: chat) {
+                        ChatListItemView(chat: chat)
+                    }
+                }
+                .onDelete {
+                    viewModel.chats.remove(atOffsets: $0)
                 }
             }
             
