@@ -9,23 +9,34 @@ import SwiftyToolz
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            List(viewModel.chats, selection: $viewModel.selectedChat) { chat in
-                NavigationLink(value: chat) {
-                    ChatListItemView(chat: chat)
-                }
-                .swipeActions(edge: .trailing) {
-                    Button {
-                        if viewModel.selectedChat === chat {
-                            viewModel.selectedChat = nil
-                        }
-                        
-                        viewModel.chats.removeAll { $0 === chat }
-                    } label: {
-                        Label("Delete", systemImage: "trash")
+            List(selection: $viewModel.selectedChat) {
+                ForEach(viewModel.chats) { chat in
+                    NavigationLink(value: chat) {
+                        ChatListItemView(chat: chat)
                     }
-                    .tint(.red)
+                    #if os(macOS)
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            if viewModel.selectedChat === chat {
+                                viewModel.selectedChat = nil
+                            }
+                            
+                            viewModel.chats.removeAll { $0 === chat }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
+                    }
+                    #endif
                 }
+                #if !os(macOS)
+                .onDelete { offsets in
+                    viewModel.chats.remove(atOffsets: offsets)
+                }
+                #endif
+                .onMove(perform: move)
             }
+            .moveDisabled(false)
             #if !os(macOS)
             .animation(.default, value: viewModel.chats) // it just looks broken on macOS
             #endif
@@ -61,6 +72,10 @@ struct AIOSAppView: View {
             APIKeySettingsView()
         }
         #endif
+    }
+    
+    private func move(from source: IndexSet, to destination: Int) {
+        viewModel.chats.move(fromOffsets: source, toOffset: destination)
     }
     
     @StateObject var viewModel = AIOSAppViewModel()
@@ -99,8 +114,21 @@ struct ChatListItemView: View {
             } label: {
                 Label("Rename", systemImage: "pencil")
             }
+            
+            #if !os(macOS)
+            Button {
+                editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
+            } label: {
+                Label(editMode?.wrappedValue == .active ? "Done Editing List" : "Edit List",
+                      systemImage: editMode?.wrappedValue == .active ? "checkmark" : "arrow.up.arrow.down")
+            }
+            #endif
         }
     }
+
+    #if !os(macOS)
+    @Environment(\.editMode) private var editMode
+    #endif
     
     func startEditing() {
         isEditing = true
@@ -108,8 +136,9 @@ struct ChatListItemView: View {
     }
     
     @FocusState var fieldIsFocused: Bool
-    @ObservedObject var chat: Chat
     @State private var isEditing = false
+    
+    @ObservedObject var chat: Chat
 }
 
 @MainActor
@@ -130,4 +159,3 @@ class AIOSAppViewModel: ObservableObject {
     @Published var selectedChat: Chat?
     @Published var chats = [Chat]()
 }
-
