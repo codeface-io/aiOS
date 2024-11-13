@@ -88,8 +88,12 @@ struct ChatListItemView: View {
                 Label("Rename", systemImage: "pencil")
             }
         }
-        .onTapGesture(count: 2) {
-            startEditing()
+        .contextMenu {
+            Button {
+                startEditing()
+            } label: {
+                Label("Rename", systemImage: "pencil")
+            }
         }
     }
     
