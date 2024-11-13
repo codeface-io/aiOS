@@ -9,16 +9,26 @@ import SwiftyToolz
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            List(selection: $viewModel.selectedChat) {
-                ForEach(viewModel.chats) { chat in
-                    NavigationLink(value: chat) {
-                        ChatListItemView(chat: chat)
-                    }
+            List(viewModel.chats, selection: $viewModel.selectedChat) { chat in
+                NavigationLink(value: chat) {
+                    ChatListItemView(chat: chat)
                 }
-                .onDelete {
-                    viewModel.chats.remove(atOffsets: $0)
+                .swipeActions(edge: .trailing) {
+                    Button {
+                        if viewModel.selectedChat === chat {
+                            viewModel.selectedChat = nil
+                        }
+                        
+                        viewModel.chats.removeAll { $0 === chat }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .tint(.red)
                 }
             }
+            #if !os(macOS)
+            .animation(.default, value: viewModel.chats) // it just looks broken on macOS
+            #endif
             
             .toolbar {
                 #if !os(macOS)
