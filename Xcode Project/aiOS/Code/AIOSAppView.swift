@@ -116,9 +116,10 @@ struct ChatListItemView: View {
 class AIOSAppViewModel: ObservableObject {
     func addNewChat() {
         guard let option = APIKeys.shared.chatAIOptions.first else { return }
-        let newChat = Chat(title: "New \(option.displayName) Chat",
-                           chatAIOption: option)
-        chats += newChat
+
+        let newChat = Chat(title: "New Chat", chatAIOption: option)
+        
+        chats.insert(newChat, at: 0)
         
         Task { @MainActor in
             self.selectedChat = newChat
