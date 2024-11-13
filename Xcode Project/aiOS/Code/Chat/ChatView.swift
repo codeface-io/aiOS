@@ -39,7 +39,7 @@ struct ChatView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Picker("AI", selection: $chat.chatAIOption) {
-                    ForEach(optionsProvider.chatAIOptions) { option in
+                    ForEach(apiKeys.chatAIOptions) { option in
                         Text(option.displayName).tag(option)
                     }
                 }
@@ -49,7 +49,7 @@ struct ChatView: View {
     }
     
     @ObservedObject var chat: Chat
-    @StateObject var optionsProvider = ChatAIOptionsProvider()
+    @ObservedObject var apiKeys = APIKeys.shared
 }
 
 struct ChatMessageList: View {

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96235BFD2CE2BEBB00A22B95 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96235BFC2CE2BEB400A22B95 /* APIKeys.swift */; };
 		96374E0A2CDB024E0056F95B /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96374E092CDB024E0056F95B /* SwiftAI */; };
 		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
 		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
@@ -22,7 +21,7 @@
 		96A5259E2CDE764F00FB43C1 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5259D2CDE764F00FB43C1 /* Clipboard.swift */; };
 		96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A12CDE772F00FB43C1 /* AIOSColors.swift */; };
 		96A525A42CDE94EB00FB43C1 /* APIKeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */; };
-		96BCC0C02CE04472006D930A /* ChatAIOptionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCC0BF2CE04472006D930A /* ChatAIOptionsProvider.swift */; };
+		96BCC0C02CE04472006D930A /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCC0BF2CE04472006D930A /* APIKeys.swift */; };
 		96BD3A992CDD88FA00878431 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3A982CDD88FA00878431 /* InputView.swift */; };
 		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
 		96FD33F42CD8252B0076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F32CD8252B0076BD4D /* SwiftAI */; };
@@ -46,7 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		96235BFC2CE2BEB400A22B95 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +61,7 @@
 		96A5259D2CDE764F00FB43C1 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		96A525A12CDE772F00FB43C1 /* AIOSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSColors.swift; sourceTree = "<group>"; };
 		96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeySettingsView.swift; sourceTree = "<group>"; };
-		96BCC0BF2CE04472006D930A /* ChatAIOptionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAIOptionsProvider.swift; sourceTree = "<group>"; };
+		96BCC0BF2CE04472006D930A /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		96BD3A982CDD88FA00878431 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +153,7 @@
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
 				96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */,
 				96A525A02CDE76D000FB43C1 /* Chat */,
+				96BCC0BF2CE04472006D930A /* APIKeys.swift */,
 				96A525A12CDE772F00FB43C1 /* AIOSColors.swift */,
 				96A5259F2CDE767C00FB43C1 /* Package Candidates */,
 			);
@@ -185,8 +184,6 @@
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
 				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
-				96BCC0BF2CE04472006D930A /* ChatAIOptionsProvider.swift */,
-				96235BFC2CE2BEB400A22B95 /* APIKeys.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
 			);
 			path = Chat;
@@ -352,9 +349,8 @@
 				96A5259E2CDE764F00FB43C1 /* Clipboard.swift in Sources */,
 				96BD3A992CDD88FA00878431 /* InputView.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
-				96235BFD2CE2BEBB00A22B95 /* APIKeys.swift in Sources */,
 				96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */,
-				96BCC0C02CE04472006D930A /* ChatAIOptionsProvider.swift in Sources */,
+				96BCC0C02CE04472006D930A /* APIKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

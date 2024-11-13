@@ -47,7 +47,7 @@ struct AIOSAppView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .disabled(optionsProvider.chatAIOptions.isEmpty)
+                    .disabled(apiKeys.chatAIOptions.isEmpty)
                 }
             }
             .navigationTitle("Chats")
@@ -64,7 +64,7 @@ struct AIOSAppView: View {
     }
     
     @StateObject var viewModel = AIOSAppViewModel()
-    @StateObject var optionsProvider = ChatAIOptionsProvider()
+    @ObservedObject var apiKeys = APIKeys.shared
 }
 
 struct ChatListItemView: View {
@@ -115,8 +115,7 @@ struct ChatListItemView: View {
 @MainActor
 class AIOSAppViewModel: ObservableObject {
     func addNewChat() {
-        let options = getDefaultChatAIOptionsForSupportedAPIs()
-        guard let option = options.first else { return }
+        guard let option = APIKeys.shared.chatAIOptions.first else { return }
         let newChat = Chat(title: "New \(option.displayName) Chat",
                            chatAIOption: option)
         chats += newChat
