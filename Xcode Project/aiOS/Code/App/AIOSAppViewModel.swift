@@ -11,11 +11,7 @@ class AIOSAppViewModel: ObservableObject {
             let title = "New Chat " + Date().utcString
             let newURL = try FileService.documentsFolder.appending(component: title + ".aios")
             
-            try [Message]().save(to: newURL)
-            
-            let newChat = ChatViewModel(file: newURL,
-                                        title: title,
-                                        chatAIOption: option)
+            let newChat = try ChatViewModel(loadingFrom: newURL, chatAIOption: option)
             
             chats.insert(newChat, at: 0)
             
@@ -38,10 +34,13 @@ class AIOSAppViewModel: ObservableObject {
                     $0.lastPathComponent.hasSuffix(".aios")
                 }
 
-            chats = files.map {
-                ChatViewModel(file: $0,
-                              title: String($0.lastPathComponent.dropLast(5)),
-                              chatAIOption: option)
+            chats = files.compactMap {
+                do {
+                    return try ChatViewModel(loadingFrom: $0, chatAIOption: option)
+                } catch {
+                    log(error: error.readable.message)
+                    return nil
+                }
             }
         } catch {
             log(error: error.readable.message)

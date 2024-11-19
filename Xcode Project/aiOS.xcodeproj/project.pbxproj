@@ -10,6 +10,8 @@
 		96217DB72CECF5CB00DE5CEE /* ChatListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DB62CECF5CB00DE5CEE /* ChatListItemView.swift */; };
 		96217DB92CECF5F300DE5CEE /* AIOSAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DB82CECF5F300DE5CEE /* AIOSAppViewModel.swift */; };
 		96217DBB2CECF72A00DE5CEE /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DBA2CECF72A00DE5CEE /* ChatListView.swift */; };
+		96217DBF2CECFC5B00DE5CEE /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */; };
+		96217DC12CED03C000DE5CEE /* ChatAIOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DC02CED03C000DE5CEE /* ChatAIOption.swift */; };
 		96374E0A2CDB024E0056F95B /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96374E092CDB024E0056F95B /* SwiftAI */; };
 		966DC0B12CD6F69D0017BF1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AA2CD6F69D0017BF1E /* Preview Assets.xcassets */; };
 		966DC0B22CD6F69D0017BF1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */; };
@@ -52,6 +54,8 @@
 		96217DB62CECF5CB00DE5CEE /* ChatListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListItemView.swift; sourceTree = "<group>"; };
 		96217DB82CECF5F300DE5CEE /* AIOSAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppViewModel.swift; sourceTree = "<group>"; };
 		96217DBA2CECF72A00DE5CEE /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
+		96217DC02CED03C000DE5CEE /* ChatAIOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAIOption.swift; sourceTree = "<group>"; };
 		966CA6EE2CD6F5AD008DE67D /* aiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA6FF2CD6F5AE008DE67D /* aiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		966CA7092CD6F5AE008DE67D /* aiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +216,8 @@
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
 				966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */,
+				96217DC02CED03C000DE5CEE /* ChatAIOption.swift */,
+				96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
 			);
 			path = Chat;
@@ -371,6 +377,7 @@
 				96A525A42CDE94EB00FB43C1 /* APIKeySettingsView.swift in Sources */,
 				966DC0BD2CD7D9930017BF1E /* ChatViewModel.swift in Sources */,
 				966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */,
+				96217DC12CED03C000DE5CEE /* ChatAIOption.swift in Sources */,
 				96217DBB2CECF72A00DE5CEE /* ChatListView.swift in Sources */,
 				96217DB72CECF5CB00DE5CEE /* ChatListItemView.swift in Sources */,
 				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
@@ -381,6 +388,7 @@
 				96BD3A992CDD88FA00878431 /* InputView.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
 				96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */,
+				96217DBF2CECFC5B00DE5CEE /* ChatDTO.swift in Sources */,
 				96A57EB82CEBBDF7007C6819 /* FileService.swift in Sources */,
 				96BCC0C02CE04472006D930A /* APIKeys.swift in Sources */,
 			);

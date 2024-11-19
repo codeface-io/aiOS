@@ -1,11 +1,12 @@
 import SwiftAI
 import FoundationToolz
+import Combine
 import Foundation
 import SwiftyToolz
 
 extension ChatViewModel {
     static var mock: ChatViewModel {
-        ChatViewModel(file: try! FileService.documentsFolder, title: "Mock Chat", chatAIOption: .mock)
+        ChatViewModel(title: "Mock Chat")
     }
 }
 
@@ -51,13 +52,6 @@ class ChatViewModel: ObservableObject, Identifiable, Hashable {
 
     private func append(_ message: Message) {
         messages.append(message)
-        
-        do {
-            try messages.save(to: file)
-        } catch {
-            log(error: error.readable.message)
-        }
-        
         scrollDestinationMessageID = message.id
     }
 
@@ -67,47 +61,85 @@ class ChatViewModel: ObservableObject, Identifiable, Hashable {
     func deleteItems(at offsets: IndexSet) {
         messages.remove(atOffsets: offsets)
     }
+    
+    convenience init(loadingFrom file: URL, chatAIOption: ChatAIOption) throws {
+        let dto: ChatDTO = try {
+            if FileManager.default.itemExists(file) {
+                return try ChatDTO(fromJSONFile: file)
+            } else {
+                let newDTO = ChatDTO(title: String(file.lastPathComponent.dropLast(5)),
+                                     messages: [])
+                
+                try newDTO.save(to: file)
+                
+                return newDTO
+            }
+        }()
+        
+        self.init(title: dto.title,
+                  messages: dto.messages,
+                  file: file,
+                  chatAIOption: chatAIOption)
+    }
 
-    @Published var messages = [
-        Message("Write a message to start the conversation.😊",
-                role: .assistant)
-    ]
-
-    init(file: URL, title: String, chatAIOption: ChatAIOption) {
-        self.file = file
+    init(title: String,
+         messages: [Message] = [.conversationStarter],
+         file: URL? = nil,
+         chatAIOption: ChatAIOption = .mock) {
         self.title = title
+        self.messages = messages
+        self.file = file
         self.chatAIOption = chatAIOption
         
-        do {
-            messages = try [Message](fromJSONFile: file)
-        } catch {
-            log(error: error.readable.message)
+        observeForPersistence()
+    }
+    
+    // MARK: - Persistence
+    
+    private func observeForPersistence() {
+        guard file != nil else { return }
+        
+        observations += $messages
+            .combineLatest($title)
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.save()
+            }
+    }
+    
+    private var observations = Set<AnyCancellable>()
+    
+    func save() {
+        guard let file else { return }
+        
+        Task {
+            do {
+                try makeDTO().save(to: file)
+            } catch {
+                log(error: error.readable.message)
+            }
         }
     }
+
+    func makeDTO() -> ChatDTO {
+        .init(title: title, messages: messages)
+    }
+    
+    let file: URL?
+    
+    // MARK: - Basic Data
+    
+    @Published var messages = [Message]()
 
     @Published var chatAIOption: ChatAIOption
 
     @Published var title: String
     let id = UUID()
-    
-    let file: URL
 }
 
-struct ChatAIOption: Hashable, Identifiable {
-    static func == (lhs: ChatAIOption, rhs: ChatAIOption) -> Bool {
-        lhs.displayName == rhs.displayName
+extension Message {
+    static var conversationStarter: Message {
+        Message("Write a message to start the conversation.😊",
+                role: .assistant)
     }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(displayName)
-    }
-    
-    var id: String { displayName }
-    
-    static var mock: ChatAIOption {
-        .init(chatAI: MockChatAI(), displayName: "Mock AI")
-    }
-    
-    let chatAI: ChatAI
-    let displayName: String
 }
