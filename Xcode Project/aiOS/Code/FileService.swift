@@ -3,8 +3,7 @@ import SwiftyToolz
 
 enum FileService {
     static func contentsOfDocumentsFolder() throws -> [URL] {
-        try fileManager.contentsOfDirectory(at: documentsFolder,
-                                            includingPropertiesForKeys: nil)
+        try contents(ofFolder: documentsFolder)
     }
     
     static func contentsOfICloudDocumentsFolder() throws -> [URL] {
@@ -12,8 +11,11 @@ enum FileService {
             throw "iCloud Drive is not active on this device"
         }
         
-        return try fileManager.contentsOfDirectory(at: iCloudDocumentsFolder,
-                                                   includingPropertiesForKeys: nil)
+        return try contents(ofFolder: iCloudDocumentsFolder)
+    }
+    
+    static func contents(ofFolder folder: URL) throws -> [URL] {
+        try fileManager.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)
     }
     
     static var isICloudDriveEnabledForApp: Bool {

@@ -8,7 +8,7 @@ import SwiftAI
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            ChatListView(viewModel: chatList)
+            ChatListView(chatList: chatList)
                 .toolbar {
 #if !os(macOS)
                     ToolbarItem(placement: .topBarLeading) {

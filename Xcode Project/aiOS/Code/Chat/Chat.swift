@@ -67,7 +67,7 @@ class Chat: ObservableObject, Identifiable, Hashable {
             if FileManager.default.itemExists(file) {
                 return try ChatDTO(fromJSONFile: file)
             } else {
-                let newDTO = ChatDTO(title: "New Chat", messages: [])
+                let newDTO = ChatDTO(title: "New Chat", messages: [.conversationStarter])
                 try newDTO.save(to: file)
                 return newDTO
             }
