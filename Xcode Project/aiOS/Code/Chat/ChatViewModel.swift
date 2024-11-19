@@ -53,7 +53,7 @@ class ChatViewModel: ObservableObject, Identifiable, Hashable {
         messages.append(message)
         
         do {
-            try write(messages, to: file)
+            try messages.save(to: file)
         } catch {
             log(error: error.readable.message)
         }
@@ -91,11 +91,6 @@ class ChatViewModel: ObservableObject, Identifiable, Hashable {
     let id = UUID()
     
     let file: URL
-}
-
-func write(_ messages: [Message], to file: URL) throws {
-    let messagesData = try JSONEncoder().encode(messages)
-    try messagesData.write(to: file, options: .atomic)
 }
 
 struct ChatAIOption: Hashable, Identifiable {

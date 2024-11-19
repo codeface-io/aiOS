@@ -1,3 +1,4 @@
+import SwiftAI
 import Foundation
 import SwiftyToolz
 
@@ -10,7 +11,7 @@ class AIOSAppViewModel: ObservableObject {
             let title = "New Chat " + Date().utcString
             let newURL = try FileService.documentsFolder.appending(component: title + ".aios")
             
-            try write([], to: newURL)
+            try [Message]().save(to: newURL)
             
             let newChat = ChatViewModel(file: newURL,
                                         title: title,
