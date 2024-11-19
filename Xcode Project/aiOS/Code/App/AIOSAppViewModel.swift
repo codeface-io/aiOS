@@ -8,7 +8,7 @@ class AIOSAppViewModel: ObservableObject {
         guard let option = APIKeys.shared.chatAIOptions.first else { return }
 
         do {
-            let title = "New Chat " + Date().utcString
+            let title = Date().utcString
             let newURL = try FileService.documentsFolder.appending(component: title + ".aios")
             
             let newChat = try ChatViewModel(loadingFrom: newURL, chatAIOption: option)

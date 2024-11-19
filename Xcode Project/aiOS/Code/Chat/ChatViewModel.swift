@@ -67,11 +67,8 @@ class ChatViewModel: ObservableObject, Identifiable, Hashable {
             if FileManager.default.itemExists(file) {
                 return try ChatDTO(fromJSONFile: file)
             } else {
-                let newDTO = ChatDTO(title: String(file.lastPathComponent.dropLast(5)),
-                                     messages: [])
-                
+                let newDTO = ChatDTO(title: "New Chat", messages: [])
                 try newDTO.save(to: file)
-                
                 return newDTO
             }
         }()
