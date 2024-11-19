@@ -13,7 +13,7 @@
 		966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */; };
 		966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */; };
 		966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 966DC0B72CD70C670017BF1E /* SwiftAI */; };
-		966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* Chat.swift */; };
+		966DC0BD2CD7D9930017BF1E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */; };
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
 		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
 		966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FA1392CD8CAE700DF8C36 /* Colors.swift */; };
@@ -21,6 +21,7 @@
 		96A5259E2CDE764F00FB43C1 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5259D2CDE764F00FB43C1 /* Clipboard.swift */; };
 		96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A12CDE772F00FB43C1 /* AIOSColors.swift */; };
 		96A525A42CDE94EB00FB43C1 /* APIKeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */; };
+		96A57EB82CEBBDF7007C6819 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A57EB72CEBBDE2007C6819 /* FileService.swift */; };
 		96BCC0C02CE04472006D930A /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCC0BF2CE04472006D930A /* APIKeys.swift */; };
 		96BD3A992CDD88FA00878431 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3A982CDD88FA00878431 /* InputView.swift */; };
 		96FD33F12CD824E30076BD4D /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 96FD33F02CD824E30076BD4D /* SwiftAI */; };
@@ -53,7 +54,7 @@
 		966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSApp.swift; sourceTree = "<group>"; };
 		966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppView.swift; sourceTree = "<group>"; };
-		966DC0BC2CD7D9930017BF1E /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966DC0C02CD7DA130017BF1E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		966FA1392CD8CAE700DF8C36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		96A5259D2CDE764F00FB43C1 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		96A525A12CDE772F00FB43C1 /* AIOSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSColors.swift; sourceTree = "<group>"; };
 		96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeySettingsView.swift; sourceTree = "<group>"; };
+		96A57EB72CEBBDE2007C6819 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		96BCC0BF2CE04472006D930A /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		96BD3A982CDD88FA00878431 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 				96A525A02CDE76D000FB43C1 /* Chat */,
 				96BCC0BF2CE04472006D930A /* APIKeys.swift */,
 				96A525A12CDE772F00FB43C1 /* AIOSColors.swift */,
+				96A57EB72CEBBDE2007C6819 /* FileService.swift */,
 				96A5259F2CDE767C00FB43C1 /* Package Candidates */,
 			);
 			path = Code;
@@ -183,7 +186,7 @@
 				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
-				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
+				966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
 			);
 			path = Chat;
@@ -340,7 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A525A42CDE94EB00FB43C1 /* APIKeySettingsView.swift in Sources */,
-				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
+				966DC0BD2CD7D9930017BF1E /* ChatViewModel.swift in Sources */,
 				966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */,
 				966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */,
 				96A5259C2CDE73E800FB43C1 /* MockChatAI.swift in Sources */,
@@ -350,6 +353,7 @@
 				96BD3A992CDD88FA00878431 /* InputView.swift in Sources */,
 				966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */,
 				96A525A22CDE773800FB43C1 /* AIOSColors.swift in Sources */,
+				96A57EB82CEBBDF7007C6819 /* FileService.swift in Sources */,
 				96BCC0C02CE04472006D930A /* APIKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

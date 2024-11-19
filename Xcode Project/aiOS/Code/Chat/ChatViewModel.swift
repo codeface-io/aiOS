@@ -1,19 +1,20 @@
 import SwiftAI
+import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-extension Chat {
-    static var mock: Chat {
-        Chat(title: "Mock Chat", chatAIOption: .mock)
+extension ChatViewModel {
+    static var mock: ChatViewModel {
+        ChatViewModel(file: try! FileService.documentsFolder, title: "Mock Chat", chatAIOption: .mock)
     }
 }
 
-class Chat: ObservableObject, Identifiable, Hashable {
+class ChatViewModel: ObservableObject, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    static func == (lhs: Chat, rhs: Chat) -> Bool {
+    static func == (lhs: ChatViewModel, rhs: ChatViewModel) -> Bool {
         lhs.id == rhs.id
     }
 
@@ -50,6 +51,13 @@ class Chat: ObservableObject, Identifiable, Hashable {
 
     private func append(_ message: Message) {
         messages.append(message)
+        
+        do {
+            try write(messages, to: file)
+        } catch {
+            log(error: error.readable.message)
+        }
+        
         scrollDestinationMessageID = message.id
     }
 
@@ -65,15 +73,29 @@ class Chat: ObservableObject, Identifiable, Hashable {
                 role: .assistant)
     ]
 
-    init(title: String, chatAIOption: ChatAIOption) {
+    init(file: URL, title: String, chatAIOption: ChatAIOption) {
+        self.file = file
         self.title = title
         self.chatAIOption = chatAIOption
+        
+        do {
+            messages = try [Message](fromJSONFile: file)
+        } catch {
+            log(error: error.readable.message)
+        }
     }
 
     @Published var chatAIOption: ChatAIOption
 
     @Published var title: String
     let id = UUID()
+    
+    let file: URL
+}
+
+func write(_ messages: [Message], to file: URL) throws {
+    let messagesData = try JSONEncoder().encode(messages)
+    try messagesData.write(to: file, options: .atomic)
 }
 
 struct ChatAIOption: Hashable, Identifiable {
