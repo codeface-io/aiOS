@@ -28,11 +28,8 @@ struct ChatListView: View {
 #endif
                 }
 #if !os(macOS)
-                .onDelete { offsets in
-                    viewModel.chats.remove(atOffsets: offsets)
-                }
+                .onDelete { viewModel.removeChats(at: $0) }
 #endif
-                .onMove(perform: move)
             }
             .onAppear {
                 viewModel.loadDocuments()
@@ -43,10 +40,6 @@ struct ChatListView: View {
         .animation(.default, value: viewModel.chats) // it just looks broken on macOS
 #endif
         .navigationTitle("Chats")
-    }
-    
-    private func move(from source: IndexSet, to destination: Int) {
-        viewModel.chats.move(fromOffsets: source, toOffset: destination)
     }
     
     @ObservedObject var viewModel: AIOSAppViewModel

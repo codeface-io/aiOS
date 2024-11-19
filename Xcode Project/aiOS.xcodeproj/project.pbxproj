@@ -216,8 +216,8 @@
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
 				966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */,
-				96217DC02CED03C000DE5CEE /* ChatAIOption.swift */,
 				96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */,
+				96217DC02CED03C000DE5CEE /* ChatAIOption.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
 			);
 			path = Chat;
