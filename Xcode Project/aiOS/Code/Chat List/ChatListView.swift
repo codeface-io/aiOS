@@ -3,11 +3,11 @@ import SwiftUI
 struct ChatListView: View {
     var body: some View {
         List(selection: $viewModel.selectedChat) {
-            Section(header: Text("iCloud Documents")) {
+            Section(header: Text("iCloud")) {
                 
             }
             
-            Section(header: Text("Documents")) {
+            Section(header: Text(deviceName)) {
                 ForEach(viewModel.chats) { chat in
                     NavigationLink(value: chat) {
                         ChatListItemView(chat: chat)
@@ -51,3 +51,10 @@ struct ChatListView: View {
     
     @ObservedObject var viewModel: AIOSAppViewModel
 }
+
+#if os(macOS)
+var deviceName: String { "This Mac" }
+#else
+import UIKit
+var deviceName: String { UIDevice.current.name }
+#endif
