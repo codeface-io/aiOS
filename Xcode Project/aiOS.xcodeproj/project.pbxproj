@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		96217DB72CECF5CB00DE5CEE /* ChatListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DB62CECF5CB00DE5CEE /* ChatListItemView.swift */; };
-		96217DB92CECF5F300DE5CEE /* AIOSAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DB82CECF5F300DE5CEE /* AIOSAppViewModel.swift */; };
+		96217DB92CECF5F300DE5CEE /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DB82CECF5F300DE5CEE /* ChatList.swift */; };
 		96217DBB2CECF72A00DE5CEE /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DBA2CECF72A00DE5CEE /* ChatListView.swift */; };
 		96217DBF2CECFC5B00DE5CEE /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */; };
 		96217DC12CED03C000DE5CEE /* ChatAIOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96217DC02CED03C000DE5CEE /* ChatAIOption.swift */; };
@@ -18,7 +18,7 @@
 		966DC0B32CD6F69D0017BF1E /* AIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */; };
 		966DC0B42CD6F69D0017BF1E /* AIOSAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */; };
 		966DC0B82CD70C670017BF1E /* SwiftAI in Frameworks */ = {isa = PBXBuildFile; productRef = 966DC0B72CD70C670017BF1E /* SwiftAI */; };
-		966DC0BD2CD7D9930017BF1E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */; };
+		966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BC2CD7D9930017BF1E /* Chat.swift */; };
 		966DC0BF2CD7D9CD0017BF1E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */; };
 		966DC0C12CD7DA130017BF1E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DC0C02CD7DA130017BF1E /* ChatView.swift */; };
 		966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FA1392CD8CAE700DF8C36 /* Colors.swift */; };
@@ -52,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		96217DB62CECF5CB00DE5CEE /* ChatListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListItemView.swift; sourceTree = "<group>"; };
-		96217DB82CECF5F300DE5CEE /* AIOSAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppViewModel.swift; sourceTree = "<group>"; };
+		96217DB82CECF5F300DE5CEE /* ChatList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		96217DBA2CECF72A00DE5CEE /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
 		96217DC02CED03C000DE5CEE /* ChatAIOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAIOption.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSApp.swift; sourceTree = "<group>"; };
 		966DC0AE2CD6F69D0017BF1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOSAppView.swift; sourceTree = "<group>"; };
-		966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		966DC0BC2CD7D9930017BF1E /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966DC0C02CD7DA130017BF1E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		966FA1392CD8CAE700DF8C36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -124,7 +124,6 @@
 			children = (
 				966DC0AD2CD6F69D0017BF1E /* AIOSApp.swift */,
 				966DC0AF2CD6F69D0017BF1E /* AIOSAppView.swift */,
-				96217DB82CECF5F300DE5CEE /* AIOSAppViewModel.swift */,
 				96A525A32CDE94E000FB43C1 /* APIKeySettingsView.swift */,
 			);
 			path = App;
@@ -135,6 +134,7 @@
 			children = (
 				96217DBA2CECF72A00DE5CEE /* ChatListView.swift */,
 				96217DB62CECF5CB00DE5CEE /* ChatListItemView.swift */,
+				96217DB82CECF5F300DE5CEE /* ChatList.swift */,
 			);
 			path = "Chat List";
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				966DC0C02CD7DA130017BF1E /* ChatView.swift */,
 				966DC0BE2CD7D9CD0017BF1E /* MessageView.swift */,
 				96BD3A982CDD88FA00878431 /* InputView.swift */,
-				966DC0BC2CD7D9930017BF1E /* ChatViewModel.swift */,
+				966DC0BC2CD7D9930017BF1E /* Chat.swift */,
 				96217DBE2CECFC1500DE5CEE /* ChatDTO.swift */,
 				96217DC02CED03C000DE5CEE /* ChatAIOption.swift */,
 				96A5259B2CDE73E800FB43C1 /* MockChatAI.swift */,
@@ -373,9 +373,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96217DB92CECF5F300DE5CEE /* AIOSAppViewModel.swift in Sources */,
+				96217DB92CECF5F300DE5CEE /* ChatList.swift in Sources */,
 				96A525A42CDE94EB00FB43C1 /* APIKeySettingsView.swift in Sources */,
-				966DC0BD2CD7D9930017BF1E /* ChatViewModel.swift in Sources */,
+				966DC0BD2CD7D9930017BF1E /* Chat.swift in Sources */,
 				966FA13A2CD8CAEA00DF8C36 /* Colors.swift in Sources */,
 				96217DC12CED03C000DE5CEE /* ChatAIOption.swift in Sources */,
 				96217DBB2CECF72A00DE5CEE /* ChatListView.swift in Sources */,

@@ -3,7 +3,7 @@ import Foundation
 import SwiftyToolz
 
 @MainActor
-class AIOSAppViewModel: ObservableObject {
+class ChatList: ObservableObject {
     func addNewChat() {
         guard let option = APIKeys.shared.chatAIOptions.first else { return }
 
@@ -11,9 +11,9 @@ class AIOSAppViewModel: ObservableObject {
             let title = Date().utcString
             let newURL = try FileService.documentsFolder.appending(component: title + ".aios")
             
-            let newChat = try ChatViewModel(loadingFrom: newURL, chatAIOption: option)
+            let newChat = try Chat(loadingFrom: newURL, chatAIOption: option)
             
-            chats.insert(newChat, at: 0)
+            localChats.insert(newChat, at: 0)
             
             Task { @MainActor in
                 self.selectedChat = newChat
@@ -25,7 +25,7 @@ class AIOSAppViewModel: ObservableObject {
     
     func removeChats(at offsets: IndexSet) {
         // first delete the chat files
-        let filesToRemove = offsets.compactMap { chats[$0].file }
+        let filesToRemove = offsets.compactMap { localChats[$0].file }
         
         for file in filesToRemove {
             do {
@@ -36,12 +36,10 @@ class AIOSAppViewModel: ObservableObject {
         }
         
         // then remove that chat view models
-        chats.remove(atOffsets: offsets)
+        localChats.remove(atOffsets: offsets)
     }
     
-    @Published var showsSettings = false
-    
-    func loadDocuments() {
+    func loadLocalChats() {
         guard let option = APIKeys.shared.chatAIOptions.first else { return }
         
         do {
@@ -50,9 +48,9 @@ class AIOSAppViewModel: ObservableObject {
                     $0.lastPathComponent.hasSuffix(".aios")
                 }
 
-            chats = files.compactMap {
+            localChats = files.compactMap {
                 do {
-                    return try ChatViewModel(loadingFrom: $0, chatAIOption: option)
+                    return try Chat(loadingFrom: $0, chatAIOption: option)
                 } catch {
                     log(error: error.readable.message)
                     return nil
@@ -63,7 +61,7 @@ class AIOSAppViewModel: ObservableObject {
         }
     }
     
-    
-    @Published var selectedChat: ChatViewModel?
-    @Published private(set) var chats = [ChatViewModel]()
+    @Published var selectedChat: Chat?
+    @Published private(set) var iCloudChats = [Chat]()
+    @Published private(set) var localChats = [Chat]()
 }

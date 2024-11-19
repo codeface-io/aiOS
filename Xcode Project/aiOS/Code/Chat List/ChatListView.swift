@@ -8,7 +8,7 @@ struct ChatListView: View {
             }
             
             Section(header: Text(deviceName)) {
-                ForEach(viewModel.chats) { chat in
+                ForEach(viewModel.localChats) { chat in
                     NavigationLink(value: chat) {
                         ChatListItemView(chat: chat)
                     }
@@ -32,17 +32,17 @@ struct ChatListView: View {
 #endif
             }
             .onAppear {
-                viewModel.loadDocuments()
+                viewModel.loadLocalChats()
             }
         }
         .moveDisabled(false)
 #if !os(macOS)
-        .animation(.default, value: viewModel.chats) // it just looks broken on macOS
+        .animation(.default, value: viewModel.localChats) // it just looks broken on macOS
 #endif
         .navigationTitle("Chats")
     }
     
-    @ObservedObject var viewModel: AIOSAppViewModel
+    @ObservedObject var viewModel: ChatList
 }
 
 #if os(macOS)

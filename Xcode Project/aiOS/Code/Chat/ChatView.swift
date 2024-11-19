@@ -11,7 +11,7 @@ struct ChatPreview: View {
         ChatView(chat: chat)
     }
     
-    @StateObject var chat = ChatViewModel.mock
+    @StateObject var chat = Chat.mock
 }
 
 struct ChatView: View {
@@ -48,7 +48,7 @@ struct ChatView: View {
         }
     }
     
-    @ObservedObject var chat: ChatViewModel
+    @ObservedObject var chat: Chat
     @ObservedObject var apiKeys = APIKeys.shared
 }
 
@@ -104,7 +104,7 @@ struct ChatMessageList: View {
         chat.messages.move(fromOffsets: source, toOffset: destination)
     }
     
-    @ObservedObject var chat: ChatViewModel
+    @ObservedObject var chat: Chat
 }
 
 private var verticalSpacing: CGFloat { 16 }

@@ -56,5 +56,5 @@ struct ChatListItemView: View {
     @FocusState var fieldIsFocused: Bool
     @State private var isEditing = false
     
-    @ObservedObject var chat: ChatViewModel
+    @ObservedObject var chat: Chat
 }

@@ -10,7 +10,7 @@ struct InputPreview: View {
         InputView(chat: chat)
     }
     
-    @StateObject var chat = ChatViewModel.mock
+    @StateObject var chat = Chat.mock
 }
 
 struct InputView: View {
@@ -67,5 +67,5 @@ struct InputView: View {
     
     // MARK: - Basics
     
-    @ObservedObject var chat: ChatViewModel
+    @ObservedObject var chat: Chat
 }

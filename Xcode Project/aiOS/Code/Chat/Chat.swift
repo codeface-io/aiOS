@@ -4,18 +4,18 @@ import Combine
 import Foundation
 import SwiftyToolz
 
-extension ChatViewModel {
-    static var mock: ChatViewModel {
-        ChatViewModel(title: "Mock Chat")
+extension Chat {
+    static var mock: Chat {
+        Chat(title: "Mock Chat")
     }
 }
 
-class ChatViewModel: ObservableObject, Identifiable, Hashable {
+class Chat: ObservableObject, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    static func == (lhs: ChatViewModel, rhs: ChatViewModel) -> Bool {
+    static func == (lhs: Chat, rhs: Chat) -> Bool {
         lhs.id == rhs.id
     }
 

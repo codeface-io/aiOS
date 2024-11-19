@@ -8,21 +8,20 @@ import SwiftAI
 struct AIOSAppView: View {
     var body: some View {
         NavigationSplitView {
-            ChatListView(viewModel: viewModel)
+            ChatListView(viewModel: chatList)
                 .toolbar {
 #if !os(macOS)
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            viewModel.showsSettings = true
+                            showsSettings = true
                         } label: {
                             Image(systemName: "key.horizontal")
                         }
                     }
 #endif
-                    
                     ToolbarItem(placement: .primaryAction) {
                         Button {
-                            viewModel.addNewChat()
+                            chatList.addNewChat()
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -30,17 +29,18 @@ struct AIOSAppView: View {
                     }
                 }
         } detail: {
-            if let selectedChat = viewModel.selectedChat {
+            if let selectedChat = chatList.selectedChat {
                 ChatView(chat: selectedChat)
             }
         }
 #if !os(macOS)
-        .sheet(isPresented: $viewModel.showsSettings) {
+        .sheet(isPresented: $showsSettings) {
             APIKeySettingsView()
         }
 #endif
     }
     
-    @StateObject var viewModel = AIOSAppViewModel()
+    @StateObject var chatList = ChatList()
     @ObservedObject var apiKeys = APIKeys.shared
+    @State var showsSettings = false
 }
